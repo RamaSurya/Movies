@@ -1,0 +1,216 @@
+@editprofile
+Feature: checking the functionality of Edit Profile page
+Background: user should be on the Edit Profile page
+
+@title
+Scenario: checking the title
+When user is on Edit Profile page
+Then title of the page should be Edit Profile
+ 
+@HOME
+Scenario: checking the functionality of HOME link
+Given HOME link is displayed on Edit Pofile page
+When user clicks on HOME link
+Then user will Redirect to Customer Home page
+
+@EDITPROFILE
+Scenario: checking the functionality of EDIT PROFILE link
+Given EDIT PROFILE link is displayed on Edit Profile page
+When user clicks on EDIT PROFILE link
+Then user will Redirect to same(Edit Profile) Page
+
+@SHOWDETAILS
+Scenario: checking the functionality of SHOW DETAILS link
+Given SHOW DETAILS link is displayed on Edit profile page
+When user clicks on SHOW DETAILS Link
+Then user will Redirect to Show Details page
+
+@CANCELBOOKING
+Scenario: checking the functionaity of CANCEL BOOKING link
+Given CANCEL BOOKING link is displayed on Edit Profile page
+When user clicks on CANCEL BOOKING link
+Then user will Redirect to Cancel Booking page
+
+@LOGOUT
+Scenario: checking the functionality of LOGOUT link
+Given LOGOUT link is displayed on Edit Profile page
+When user clicks on LOGOUT link
+Then user will Redirect to Cinema Cafe page
+
+@validedit
+Scenario: checking the functionality of Edit Profile with valid data
+When user enters valid Name
+And user enters valid Mobile
+And user enters valid Password
+And user enters valid Answer
+And click on Submit button
+Then User gets message-Data updated successfully
+
+@nameblank
+Scenario: checking the functionality of Edit Profile with blank name
+When user enters valid Mobile
+And user enters valid Password
+And user enters valid Answer
+And click on Submit button
+Then user gets message-Username is blank.Please provide a valid Username.
+
+@name<5
+Scenario: checking the functionaity of Edit Profile with name less than 5 characters
+When user enters name with less than 5 characters
+And user enters valid Mobile
+And user enters valid Password
+And user enters valid Answer
+And click on Submit button
+Then user gets message-Name is out of range.Name exceeding range.
+
+
+@name>20
+Scenario: checking the functionaity of Edit Profile with name greater than 20 characters
+When user enters name with greater than 20 characters
+And user enters valid Mobile
+And user enters valid Password
+And user enters valid Answer
+And click on Submit button
+Then user gets message-Name is out of range. Name exceeding range.
+
+
+@namespecial
+Scenario: checking the functionaity of Edit Profile with name having special character
+When user enters name with special character
+And user enters valid Mobile
+And user enters valid Password
+And user enters valid Answer
+And click on submit button
+Then user gets message-Name is having special characters
+
+@blankmobile
+Scenario:checking the functionality of Edit Profile with blank mobile
+When user enters valid Name
+And user enters valid Password
+And user enters valid Answer
+And click on Submit button
+Then user gets message-Data updated successfully
+
+
+@mobile<10
+Scenario: checking the functionality of Edit Profile with mobile less than 10 numbers
+When user enters valid Name
+And mobile with less than 10 numbers
+And user enters valid Password
+And user enters valid Answer
+And click on Submit button
+Then user gets message-Mobile number is out of range.Please give a valid mobile number.
+
+
+
+@mobile>12
+Scenario: checking the functionality of Edit Profile with mobile less than 12 numbers
+When user enters valid Name
+And user enters mobile with less than 12 numbers
+And user enters valid Password
+And user enters valid Answer
+And click on Submit button
+Then user gets message-Mobile number is out of range.Please give a valid mobile number.
+
+@mobilealphabet
+Scenario: checking the functionality of Edit Profile with mobile having alphabets
+When user enters valid Name
+And user enters mobile with mobile having alphabets
+And user enters valid Password
+And user enters valid Answer
+And click on Submit button
+Then user gets message-Mobile number is out of range.Please give a valid mobile number.
+
+@mobilespecial
+Scenario: checking the functionality of Edit Profile with mobile having special characters
+When user enters valid Name
+And user enters mobile with mobile having special characters
+And user enters valid Password
+And user enters valid Answer
+And click on Submit button
+Then user gets message-Mobile number is out of range.Please give a valid mobile number.
+
+
+
+@passwordblank
+Scenario: checking the functionality of Edit Profile with blank password 
+When user enters valid Name
+And user enters valid Mobile
+And user enters valid Answer
+And click on Submit button
+Then user gets message-Password is blank.Please provide a valid password.
+
+
+@password<8
+Scenario: checking the functionality of Edit Profile with password less than 8 characters
+When user enters valid Name
+And user enters valid Mobile
+And user enters Password with less than 8 characters
+And user enters valid Answer
+And click on Submit button
+Then user gets message-Password is out of range. Password exceeding range or must be greater than 8 letters.
+
+
+@password>20
+Scenario: checking the functionality of Edit Profile with Password greater than 20 characters
+When user enters valid Name
+And user enters valid Mobile
+And user enters Password with greater than 20 characters
+And user enters valid Answer
+And click on Submit button
+Then user gets message-Password is out of range. Password exceeding range or must be greater than 8 letters.
+
+
+@passwordspecial
+Scenario: checking the functionality of Edit Profile with Password having special characters
+When  user enters valid Name
+And user enters valid Mobile
+And user enters Password with special characters
+And user enters valid Answer
+And click on Submit button
+Then user gets message-
+
+@answerblank
+Scenario: checking the functionality of Edit Profile with blank Answer 
+When user enters valid Name
+And user enters valid Mobile
+And user enters valid Password
+And click on Submit button
+Then user gets message-Answer is blank.Please provide an answer to security question.
+
+
+@answer<5
+Scenario: checking the functionality of Edit Profile with Answer having less than 5 characters
+When user enters valid Name
+And user enters valid Mobile
+And user enters valid Password
+And user enters Answer having less than 5 characters
+And click on Submit button
+Then user gets message-Answer is out of range.Answer exceeding the range.
+
+
+
+@answer>100
+Scenario: checking the functionality of Edit Profile with Answer having greater than 20 characters
+When user enters valid Name
+And user enters valid Mobile
+And user enters valid Password
+And user enters Answer having greater than 20 characters
+And click on Submit button
+Then user gets message-Answer is out of range. Answer exceeding the range.
+
+
+
+
+@answerspecial
+Scenario: checking the functionality of Edit Profile with Answer having special characters
+When user enters valid Name
+And user enters valid Mobile
+And user enters valid Password
+And user enters Answer having special characters
+And click on Submit button
+Then user gets message-Answer is having special characters
+
+
+
+

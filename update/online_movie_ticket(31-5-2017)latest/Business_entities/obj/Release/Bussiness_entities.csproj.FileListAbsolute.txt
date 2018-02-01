@@ -1,0 +1,10 @@
+C:\online_ticket\layernewproject\online_movie\Business_entities\bin\Release\Business_entities.dll
+C:\online_ticket\layernewproject\online_movie\Business_entities\bin\Release\Business_entities.pdb
+C:\online_ticket\layernewproject\online_movie\Business_entities\obj\Release\Bussiness_entities.csprojResolveAssemblyReference.cache
+C:\online_ticket\layernewproject\online_movie\Business_entities\obj\Release\Business_entities.dll
+C:\online_ticket\layernewproject\online_movie\Business_entities\obj\Release\Business_entities.pdb
+C:\trainingcourse\online_movie_new\Business_entities\bin\Release\Business_entities.dll
+C:\trainingcourse\online_movie_new\Business_entities\bin\Release\Business_entities.pdb
+C:\trainingcourse\online_movie_new\Business_entities\obj\Release\Bussiness_entities.csprojResolveAssemblyReference.cache
+C:\trainingcourse\online_movie_new\Business_entities\obj\Release\Business_entities.dll
+C:\trainingcourse\online_movie_new\Business_entities\obj\Release\Business_entities.pdb

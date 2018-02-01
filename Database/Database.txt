@@ -1,0 +1,99 @@
+create database Movies
+create table Users
+(
+UserId varchar(50) primary key,
+Name varchar(20) not null,
+Mobile varchar(15) not null,
+Passwords varchar(20) not null,
+Answer varchar(100) not null
+)
+
+create table Shows
+(
+ShowId varchar(5) primary key,
+MovieName varchar(50) not null,
+ShowDate date not null,
+StartTime time not null,
+EndTime time not null
+)
+
+create table Price
+(
+SeatType varchar(10) primary key,
+Price int not null,
+)
+
+create table Seats
+(
+SeatNo varchar(10) primary key,
+SeatType varchar(10) not null,
+Statc binary not null,
+UserId varchar(50) not null,
+)
+
+     create table Booking
+(
+BookingId int  primary key,
+UserId varchar(50) not null,
+ShowId varchar(5) not null,
+Seatno varchar(16) not null
+)
+   
+
+create table AdminAccount
+(
+UserId varchar(50) not null,
+Amount int null
+)
+
+create table UserAccount
+(
+UserId varchar(50) not null,
+BookingId int not null,
+AmountCredited int not null,
+AmountDeducted int not null
+)
+
+create table Admins
+(
+UserId varchar(50) primary key,
+Passwords varchar(20) not null
+)
+
+create table Seats
+(
+ShowId varchar(10) foreign key references Shows(ShowId),
+s1 varchar(5),
+s2 varchar(5),
+s3 varchar(5),
+s4 varchar(5),
+s5 varchar(5),
+s6 varchar(5),
+s7 varchar(5),
+s8 varchar(5),
+s9 varchar(5),
+s10 varchar(5),
+s11 varchar(5),
+s12 varchar(5),
+s13 varchar(5),
+s14 varchar(5),
+s15 varchar(5),
+s16 varchar(5),
+s17 varchar(5),
+s18 varchar(5),
+s19 varchar(5),
+s20 varchar(5),
+s21 varchar(5),
+s22 varchar(5),
+s23 varchar(5),
+s24 varchar(5),
+s25 varchar(5)
+)
+
+alter table Seats add constraint fk_seats foreign key (SeatType) references Price(SeatType)
+alter table Seats add constraint fk_seat foreign key (UserId) references Users(UserId)
+alter table Booking add constraint fk_Bookings foreign key (UserId) references Users(UserId)
+alter table Booking add constraint fk_Booking foreign key (ShowId) references Shows(ShowId)
+alter table AdminAccount add constraint fk_admin foreign key (UserId) references Users(UserId)
+alter table UserAccount add constraint fk_users foreign key (UserId) references Users(UserId)
+alter table UserAccount add constraint fk_user foreign key (BookingId) references Booking(BookingId)

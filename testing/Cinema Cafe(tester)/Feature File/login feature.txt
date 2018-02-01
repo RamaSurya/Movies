@@ -1,0 +1,118 @@
+
+
+@CinemaCafePage
+Feature: Check the Functionality of Cinema Cafe page
+	Background:
+	Given User is on the Cinema Cafe Page 
+	
+@home
+Scenario: Checking Functionality of HOME link
+
+When User clicks on HOME link
+Then Redirect to Cinema Cafe Page 	
+
+
+@services
+Scenario: Checking Functionality of SERVICES link
+
+When User clicks on SERVICES link
+Then Scroll to service division  	
+
+
+@login
+Scenario: Checking Functionality of LOGIN link
+
+When User clicks on LOGIN link
+Then Scroll to Login division
+
+
+@showcontact
+Scenario: Checking Functionality of SHOW CONTACT link
+
+When User clicks on SHOW CANTACT link
+Then Scroll to SHOW CONTACT division
+
+
+@createnewaccount
+Scenario: Checking Functionality of Create New Account link
+
+When User clicks on Create New Account link
+Then Redirect to Registraion Page
+
+
+@forgotpassword
+Scenario: Checking Functionality of Forgot Password link
+
+When User clicks on Forgot Password link
+Then Redirect to Forgot Password Page
+
+
+@goup
+Scenario: Checking Functionality of go up!!! link
+
+When User clicks on go up!!! link
+Then Scroll to Banner division
+
+
+@ValidCredentials 
+Scenario: Checking Functionality of Login with valid credentials
+
+When User enters valid Username and Password present in Database
+Then Redirect to the Admin Home or Customer Home
+
+
+@BlankUsername 
+Scenario: Checking Functionality of Login with blank Username
+
+When User enters Password
+Then User gets message - Username is blank.Please provide a valid Username.
+
+@BlankPassword
+Scenario: Checking Functionality of Login with blank Password
+
+When User enters Username
+Then User gets message - Password is blank.Please provide a valid Password.
+
+
+@Username<8
+Scenario: Checking Functionality of Login with Username less than 8 character
+
+When User enters Username less than 8 character
+Then User gets message - Please provide a valid Username.
+
+@Username>20
+Scenario: Checking Functionality of Login with Username more than 20 character
+
+When User enters Username more than 20 character
+Then User gets message - Please provide a valid Username.
+
+@Usernamespecial
+Scenario: Checking Functionality of Login with Username having Special character
+
+When User enters Username with Special Characters
+Then User gets message - Please provide a valid Username.
+
+
+@password<8
+Scenario: Checking Functionality of Login with Password less than 8 character
+
+When User enters Password less than 8 character
+Then User gets message - Please provide a valid Password.
+
+@password>20
+Scenario: Checking Functionality of Login with Password more than 20 character
+
+When User enters Password more than 20 character
+Then User gets message - Please provide a valid Password.
+
+@passwordspecial
+Scenario: Checking Functionality of Login with Password having Special character
+
+When User enters Password with Special Characters
+Then User gets message - Please provide a valid Password.
+
+@passwordmasked
+Scenario: Checking Functionality of Login if password is masked
+
+When User enters Password
+Then It should have a mask of '*'.

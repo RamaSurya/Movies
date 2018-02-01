@@ -1,0 +1,165 @@
+@Given("^User is on Forgot Password Page$")
+	public void User_is_on_Forgot_Password_Page()  {
+		 driver.get(url);
+		 driver.findElement(getlocator("forgot")).click();
+	   
+	}
+	
+/*	@When("^User is on the Forgot Password Page$")
+	public void User_is_on_the_Forgot_Password_Page()  {
+		driver.get("http://172.16.170.67/cinemacafe1");
+		driver.findElement(getlocator("forgot")).click();
+	   
+	}
+	
+	@Then("^Title of page should be Forgot Password$")
+	public void Title_of_page_should_be_Forgot_Password()  {
+	    
+	}
+	
+	@When("^User clicks on Cancel link$")
+	public void User_clicks_on_Cancel_link()  {
+	   
+	}
+	
+	@Then("^USER should Redirected to Cinema Caf? page$")
+	public void USER_should_Redirected_to_Cinema_Caf_page()  {
+	   
+	}*/
+	
+	@When("^User enters valid User ID, vaid Answer and click on Submit button$")
+	public void User_enters_valid_User_ID_vaid_Answer_and_click_on_Submit_button() throws IOException  {
+		  driver.findElement(getlocator("uid")).sendKeys(read(1,0,"data"));
+		   driver.findElement(getlocator("ans")).sendKeys(read(1,1,"data"));
+		   driver.findElement(getlocator("sub")).click();
+	    
+	}
+	
+	@Then("^User should  Redirect to Customer Home page for valid login$")
+	public void User_should_Redirect_to_Customer_Home_page_for_valid_login() throws IOException {
+		write(1, 3, driver.getTitle(),"data");
+		status(1, 2, "data");
+	   
+	}
+	
+	@When("^User enters Answer and click on Submit button$")
+	public void User_enters_Answer_and_click_on_Submit_button() throws IOException  {
+		
+		 driver.findElement(getlocator("uid")).sendKeys(read(2,0,"data"));
+		   driver.findElement(getlocator("ans")).sendKeys(read(2,1,"data"));
+		   driver.findElement(getlocator("sub")).click();
+	   
+	}
+	
+	@Then("^User gets message - User Id is blank. Please provide a User Id$")
+	public void User_gets_message_User_Id_is_blank_Please_provide_a_User_Id() throws IOException  {
+		
+		status(2, 2, "data");
+		
+		
+}
+	
+	@When("^user enters invalid User ID and Answer and click  on Submit button$")
+	public void user_enters_invalid_User_ID_and_Answer_and_click_on_Submit_button() throws IOException  {
+		driver.findElement(getlocator("uid")).sendKeys(read(3,0,"data"));
+		   driver.findElement(getlocator("ans")).sendKeys(read(3,1,"data"));
+		   driver.findElement(getlocator("sub")).click();
+	   
+	}
+	
+	@Then("^User gets message - User Id should be an email id \\(or\\) user Id did not already exists$")
+	public void User_gets_message_User_Id_should_be_an_email_id_or_user_Id_did_not_already_exists() throws IOException  {
+	
+		status(3, 2, "data");
+	}
+	
+	@When("^User enters User ID and click on Submit button$")
+	public void User_enters_User_ID_and_click_on_Submit_button() throws IOException  {
+		driver.findElement(getlocator("uid")).sendKeys(read(4,0,"data"));
+		   driver.findElement(getlocator("ans")).sendKeys(read(4,1,"data"));
+		   driver.findElement(getlocator("sub")).click();
+	  
+	}
+	
+	@Then("^User gets message - Answer is blank.Please provide the answer for security question$")
+	public void User_gets_message_Answer_is_blank_Please_provide_the_answer_for_security_question() throws IOException {
+		
+		status(4, 2, "data");
+	    
+	}
+	
+	@When("^User enters User ID, Answer less than (\\d+) characters andclick on Submit button$")
+	public void User_enters_User_ID_Answer_less_than_characters_andclick_on_Submit_button(int arg1) throws IOException  {
+		driver.findElement(getlocator("uid")).sendKeys(read(5,0,"data"));
+		   driver.findElement(getlocator("ans")).sendKeys(read(5,1,"data"));
+		   driver.findElement(getlocator("sub")).click();
+	    
+	}
+	
+	@Then("^User gets message -Answer is less than (\\d+).Please provide a valid answer for security checking.$")
+	public void User_gets_message_Answer_is_less_than_Please_provide_a_valid_answer_for_security_checking(int arg1) throws IOException  {
+		
+		status(5, 2, "data");
+	   
+	}
+	
+	@When("^User enters User ID, Answer greater than (\\d+) characters and click on Submit button$")
+	public void User_enters_User_ID_Answer_greater_than_characters_and_click_on_Submit_button(int arg1) throws IOException {
+		driver.findElement(getlocator("uid")).sendKeys(read(6,0,"data"));
+		   driver.findElement(getlocator("ans")).sendKeys(read(6,1,"data"));
+		   driver.findElement(getlocator("sub")).click();
+	    
+	}
+	
+	@Then("^User gets message -Answer is greater than (\\d+).Please provide a valid answer for security checking.$")
+	public void User_gets_message_Answer_is_greater_than_Please_provide_a_valid_answer_for_security_checking(int arg1) throws IOException {
+		
+		status(6, 2, "data");
+	}
+	
+	@When("^User enters User ID, Answer having special characters and click on Submit button$")
+	public void User_enters_User_ID_Answer_having_special_characters_and_click_on_Submit_button() throws IOException  {
+		driver.findElement(getlocator("uid")).sendKeys(read(7,0,"data"));
+		   driver.findElement(getlocator("ans")).sendKeys(read(7,1,"data"));
+		   driver.findElement(getlocator("sub")).click();
+	    
+	}
+	
+	@Then("^User gets message -Answer is having special characters.Please provide a valid answer for security checking.$")
+	public void User_gets_message_Answer_is_having_special_characters_Please_provide_a_valid_answer_for_security_checking() throws IOException {
+
+		status(7, 2, "data");
+	    
+	}
+	
+	@When("^User counts no. of links$")
+	public void User_counts_no_of_links()  {
+		
+	  
+	}
+
+	@Then("^links should be equal to (\\d+)$")
+	public void links_should_be_equal_to(int arg1)  {
+	  
+	}
+
+	@When("^User counts no. of text boxes$")
+	public void User_counts_no_of_text_boxes()  {
+	    
+	}
+
+	@Then("^Textboxes should be equal to (\\d+)$")
+	public void Textboxes_should_be_equal_to(int arg1)  {
+	    
+	}
+
+	@When("^User counts no. of buttons$")
+	public void User_counts_no_of_buttons()  {
+	   
+	}
+
+	@Then("^B should be equal to (\\d+)$")
+	public void B_should_be_equal_to(int arg1)  {
+	   
+	}
+

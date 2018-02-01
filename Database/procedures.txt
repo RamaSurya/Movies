@@ -1,0 +1,189 @@
+---------------Insert------------------
+    
+     create procedure  insertproc(@user nvarchar(20), @mob varchar(15), @name nvarchar(50), @pawd nvarchar(20), @ans nvarchar(100))
+      as
+      begin
+      insert into Users values(@user,@name, @mob, @pawd, @ans)
+      end
+
+
+-----------------Login-------------------
+ 
+  create procedure  loginproc(@user nvarchar(50), @pawd nvarchar(20))
+      as
+      begin
+      if(select Count(*) from Users where UserId=@user and Passwords=@pawd and  UserId!='admin@admin.com' and Passwords!='admin123')=1
+      select Count(*) from Users where UserId=@user and Passwords=@pawd
+      else if(select COUNT(*) from Users where UserId='admin@admin.com' and Passwords='admin123' and UserId=@user and Passwords=@pawd)=1
+      select (COUNT(*)+1) from Users where UserId='admin@admin.com' and Passwords='admin123'
+      else
+      print 'Error'  
+      end
+----------------CANCEL--------------------
+
+create procedure  [dbo].[cancelproc](@sid varchar(10), @bkid int, @user varchar(50))
+      as
+      begin
+      if exists(select BookingId from Booking where BookingId=@bkid and UserId=@user)
+      begin
+     delete from Booking where BookingId=@bkid
+      DECLARE @cnt int = 1
+      WHILE @cnt < 25
+BEGIN
+       DECLARE @Prefix VARCHAR(10)='s'
+      declare @sql nvarchar(max)
+     set @sql=' update Seats set '+ @Prefix + CAST(@cnt AS VARCHAR(10)) +' = NULL  where ShowId = '+CAST(@sid AS VARCHAR(10))+' and '+ @Prefix + Cast(@cnt AS VARCHAR(10)) +'='+Cast(@bkid AS VARCHAR(10))
+    exec sp_executesql @sql
+   SET @cnt = CAST(@cnt AS int)+1
+END
+end
+      end
+      
+      
+---------------ADMIN-----------------------------------
+
+create procedure adminproc(@name nvarchar(50), @dt datetime)
+as
+begin
+if not exists(select MovieName, Timing from Shows where MovieName=@name and Timing=@dt)
+insert into Shows values(@name, @dt)
+else
+print 'Data already exists'
+end
+
+
+------------------UPDATE--------------------------------
+
+create procedure  updateproc(@sid varchar(5),@mname varchar(50), @sdate date, @stime time, @etime time)
+      as
+      begin
+      if exists(select COUNT(*) from Shows where ShowId=@sid)=1
+      begin
+     update Shows set ShowId=@sid,MovieName=@mname,ShowDate= @sdate,StartTime= @stime,EndTime= @etime where ShowId=@sid
+     end
+     else
+     print 'ShowId doesnot exists'
+      end
+
+----------------------PRICE------------------------------
+
+create procedure  priceproc(@type varchar(10), @price int)
+      as
+      begin
+     if exists(select SeatType,Price from Price where SeatType=@type)
+     UPDATE Price
+     SET SeatType= @type, Price=@price
+     WHERE SeatType=@type
+     else
+     insert into Price values(@type, @price)
+     end
+      
+-------------------SHOW-----------------------------------
+
+create procedure showproc
+as
+ select * from Shows
+
+-------------------DISPLAY----------------------------------
+
+create procedure  displayproc(@name varchar(50))
+      as
+      begin
+     select * from Shows where MovieName=@name
+     end
+
+-------------------------ADD---------------------------------------
+create procedure  addproc(@sid varchar(5),@mname varchar(50), @sdate date, @stime time, @etime time)
+      as
+      begin
+      insert into Shows values(@sid,@mname,CONVERT(varchar(15),CAST(@sdate AS date),100), CONVERT(varchar(15),CAST(@stime AS TIME),100), CONVERT(varchar(15),CAST(@etime AS TIME),100))
+      insert into Seats(ShowId,s25) values (@sid,1)
+      end
+      
+---------------------------EDIT--------------------------------
+   create procedure  editproc(@name nvarchar(20), @mob varchar(15), @user nvarchar(50), @pawd nvarchar(20), @ans nvarchar(100))
+      as
+      begin
+     UPDATE Users
+     SET Name= @name, Mobile=@mob, Passwords=@pawd, Answer=@ans
+     WHERE UserId=@user and Passwords=@pawd
+     end
+
+--------------------FORGOT--------------------------------------
+
+ create procedure  forgotproc(@user nvarchar(50), @ans nvarchar(50))
+      as
+      begin
+      if(select Count(*) from Users where UserId=@user and Answer=@ans)=1
+      select Count(Answer) from Users where UserId=@user
+      else
+      print 'Error'  
+      end
+      
+---------------------EXISTS SHOWS----------------------------------
+
+  create procedure  existsproc(@sid varchar(5))
+      as
+      begin
+      select COUNT(*) from Shows where ShowId=@sid
+      end
+
+---------------------BOOK----------------------------------------------
+ Create procedure [dbo].[bookproc]( @sid varchar(10),@sno nvarchar(max))
+      as
+      begin
+      declare @sql nvarchar(max)
+     set @sql='update Seats set ['+@sno+']=(select BookId.Bid from BookId )'+' where ShowId='+@sid
+     exec sp_executesql @sql
+     end 
+---------------BOOKDISPLAY---------------------------------------------
+
+Create procedure bookdisp( @bkid varchar(20))
+as
+ select * from Booking where BookingId=@bkid
+
+-------------------CURRENT SHOW----------------------------------------
+         create procedure currentproc
+       as    
+        select * from Shows where Showdate >=convert(date, getdate()) 
+------------------COLOR-------------------------------------------------
+
+
+create procedure  colorproc(@sid varchar(10),@sno nvarchar(max))
+      as
+      begin
+    if exists(select ShowId from Seats where ShowId=@sid)
+    begin
+    declare @SQ nvarchar(max)
+      set @SQ='select COUNT(*)from Seats where ShowId='+@sid+ 'and '+@sno+'=1 '
+     exec sp_executesql @SQ 
+     end
+     else
+     begin
+     declare @SQL nvarchar(max)
+      set @SQL='select COUNT(*)+2 from Seats where ShowId='+@sid+' and '+@sno+'=1 '
+     exec sp_executesql @SQL 
+     end
+      end
+
+
+-----------------BOOKING TABLE-------------------------------------------
+create procedure bookingtbl(@user varchar(50), @sid varchar(10), @sno varchar(16))
+as
+begin
+insert into Booking(BookingId) select Bid from BookId
+UPDATE Booking
+SET ShowId=@sid,UserId=@user,Seatno=@sno where BookingId =(select BookId.Bid from BookId)
+select Bid from BookId
+update BookId set Bid=Bid+1
+end
+
+---------------------------SHOW TICKET---------------------------------
+
+
+
+  create procedure showticketproc(@user varchar(50))
+       as    
+        select * from Booking where UserId=@user
+        
+

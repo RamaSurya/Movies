@@ -1,0 +1,228 @@
+package loginModule;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+import cucumber.api.PendingException;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+public class CinemaCafeLog extends ObjectAccess{
+		public CinemaCafeLog() throws IOException {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+		static WebDriver driver=new FirefoxDriver();
+		
+		static File f=new File("C:/Project/Cinema Cafe/Cinema Cafe/Excel Files/Cinema Cafe.xlsx");
+		 static  FileInputStream f1;
+			static XSSFWorkbook wb;
+			static XSSFSheet sh;
+			public String  read(int r,int c, String sht) throws IOException
+			{
+				
+				  FileInputStream f1=new FileInputStream(f);
+					XSSFWorkbook wb=new XSSFWorkbook(f1);
+					XSSFSheet sh=wb.getSheet(sht);
+					String u="",p="";
+				          try
+							{
+								if(sh.getRow(r).getCell(c).getCellType()==0)
+								{
+									int m=(int) sh.getRow(r).getCell(c).getNumericCellValue();
+									u=String.valueOf(m);
+								}
+								else
+								{
+									u=sh.getRow(r).getCell(c).getStringCellValue();
+								}
+							}
+							catch(Exception e)
+							{
+								if(e.equals("NullPointerException"))
+									u=null;
+							}
+					
+					return u;
+					
+			}
+			public void write(int r,int c,String s, String sht) throws IOException
+			{
+				 FileInputStream f1=new FileInputStream(f);
+					XSSFWorkbook wb=new XSSFWorkbook(f1);
+					XSSFSheet sh=wb.getSheet(sht);
+					sh.getRow(r).createCell(c).setCellValue(s);
+					FileOutputStream fo=new FileOutputStream(new File("C:/Project/Cinema Cafe/Cinema Cafe/Excel Files/Cinema Cafe.xlsx"));
+					  wb.write(fo);
+					  fo.close();
+			}
+		
+	@Given("^User is on the Cinema Cafe Page$")
+	public void User_is_on_the_Cinema_Cafe_Page() throws IOException {
+	    driver.get("http://172.16.170.67/cinemacafe1");
+	    openProperty("CinemaCafe");
+	    
+	}
+
+	@When("^the Cinema Cafe Page is open$")
+	public void the_Cinema_Cafe_Page_is_open() {
+		 driver.get("http://172.16.170.67/cinemacafe1");
+	    
+	}
+
+	@Then("^Title of page should be Cinema Cafe$")
+	public void Title_of_page_should_be_Cinema_Cafe() throws IOException {
+	    write(1, 3, driver.getTitle(),"data");  
+	    if (read(1,2,"data").equals(read(1, 3,"data"))) {
+	    	write(1, 4, "Pass","data");
+		} else {
+			write(1, 4, "Fail","data");
+		}
+	  
+	}
+
+	@When("^User enters valid User ID and Password present in Database$")
+	public void User_enters_valid_User_ID_and_Password_present_in_Database() throws IOException {
+		   driver.findElement(getlocator("uid")).sendKeys(read(2,0,"data"));
+		   driver.findElement(getlocator("pass")).sendKeys(read(2,1,"data"));
+		   driver.findElement(getlocator("log")).click();
+		    
+	}
+
+	@Then("^Redirect to the Admin Home or Customer Home$")
+	public void Redirect_to_the_Admin_Home_or_Customer_Home() throws IOException {
+		write(2, 3, driver.getTitle(),"data");
+		if (read(2,2,"data").equals(read(2, 3,"data"))) {
+	    	write(2, 4, "Pass","data");
+		} else {
+			write(2, 4, "Fail","data");
+		}
+	}
+
+	@When("^User enters Password$")
+	public void User_enters_Password() throws IOException {
+		driver.findElement(getlocator("uid")).sendKeys(read(3,0,"data"));
+		   driver.findElement(getlocator("pass")).sendKeys(read(3,1,"data"));
+		   driver.findElement(getlocator("log")).click();
+	}
+
+	@Then("^User gets message - User ID is blank.Please provide a valid Username.$")
+	public void User_gets_message_User_ID_is_blank_Please_provide_a_valid_Username() throws IOException {
+	    write(3, 3, driver.findElement(getlocator("uid")).getAttribute("data-msg"),"data");
+	    if (read(3,2,"data").equals(read(3,3,"data"))) {
+	    	write(3, 4, "Pass","data");
+		} else {
+			write(3, 4, "Fail","data");
+		}
+	}
+
+	@When("^User enters User ID$")
+	public void User_enters_User_ID() throws IOException {
+		driver.findElement(getlocator("uid")).sendKeys(read(4,0,"data"));
+		   driver.findElement(getlocator("pass")).sendKeys(read(4,1,"data"));
+		   driver.findElement(getlocator("log")).click();
+	}
+
+	@Then("^User gets message - Password is blank.Please provide a valid Password.$")
+	public void User_gets_message_Password_is_blank_Please_provide_a_valid_Password() throws IOException {
+		write(4, 3, driver.findElement(getlocator("pass")).getAttribute("data-msg"),"data");
+	    if (read(4,2,"data").equals(read(4,3,"data"))) {
+	    	write(4, 4, "Pass","data");
+		} else {
+			write(4, 4, "Fail","data");
+		}
+	}
+
+	@When("^User enters User ID less than (\\d+) character$")
+	public void User_enters_User_ID_less_than_character(int arg1) throws IOException {
+		   driver.findElement(getlocator("pass")).sendKeys(read(5,1,"data"));
+		   driver.findElement(getlocator("log")).click();
+	}
+
+	@Then("^User gets message - Please provide a valid Username,less character.$")
+	public void User_gets_message_Please_provide_a_valid_Username_less_character() throws IOException {
+		write(4, 3, driver.findElement(getlocator("pass")).getAttribute("data-msg"),"data");
+	    if (read(5,2,"data").equals(read(5,3,"data"))) {
+	    	write(5, 4, "Pass","data");
+		} else {
+			write(5, 4, "Fail","data");
+		}
+	}
+
+	@When("^User enters User ID more than (\\d+) character$")
+	public void User_enters_User_ID_more_than_character(int arg1) throws IOException {
+		driver.findElement(getlocator("uid")).sendKeys(read(6,0,"data"));
+		   driver.findElement(getlocator("pass")).sendKeys(read(6,1,"data"));
+		   driver.findElement(getlocator("log")).click();
+	    
+	}
+
+	@Then("^User gets message - Please provide a valid Username, more character.$")
+	public void User_gets_message_Please_provide_a_valid_Username_more_character() throws IOException {
+		write(6, 3, driver.findElement(getlocator("pass")).getAttribute("data-msg"),"data");
+	    if (read(6,2,"data").equals(read(6,3,"data"))) {
+	    	write(6, 4, "Pass","data");
+		} else {
+			write(6, 4, "Fail","data");
+		}
+	}
+
+	@When("^User enters Password less than (\\d+) character$")
+	public void User_enters_Password_less_than_character(int arg1) throws IOException {
+		driver.findElement(getlocator("uid")).sendKeys(read(7,0,"data"));
+		   driver.findElement(getlocator("pass")).sendKeys(read(7,1,"data"));
+		   driver.findElement(getlocator("log")).click();
+	}
+
+	@Then("^User gets message - Please provide a valid Password, less character.$")
+	public void User_gets_message_Please_provide_a_valid_Password_less_character() throws IOException {
+		if (read(7,2,"data").equals(read(7,3,"data"))) {
+	    	write(7, 4, "Pass","data");
+		} else {
+			write(7, 4, "Fail","data");
+		}
+	}
+
+	@When("^User enters Password more than (\\d+) character$")
+	public void User_enters_Password_more_than_character(int arg1) throws IOException {
+		driver.findElement(getlocator("uid")).sendKeys(read(8,0,"data"));
+		   driver.findElement(getlocator("pass")).sendKeys(read(8,1,"data"));
+		   driver.findElement(getlocator("log")).click();
+	}
+
+	@Then("^User gets message - Please provide a valid Password, more character.$")
+	public void User_gets_message_Please_provide_a_valid_Password_more_character() throws IOException {
+		if (read(8,2,"data").equals(read(8,3,"data"))) {
+	    	write(8, 4, "Pass","data");
+		} else {
+			write(8, 4, "Fail","data");
+		}
+
+	}
+
+	@When("^User enters Password with Special Characters$")
+	public void User_enters_Password_with_Special_Characters() throws IOException {
+		driver.findElement(getlocator("uid")).sendKeys(read(9,0,"data"));
+		   driver.findElement(getlocator("pass")).sendKeys(read(9,1,"data"));
+		   driver.findElement(getlocator("log")).click();
+	}
+
+	@Then("^User gets message - Please provide a valid Password,special character.$")
+	public void User_gets_message_Please_provide_a_valid_Password_special_character() throws IOException {
+		if (read(9,2,"data").equals(read(9,3,"data"))) {
+	    	write(9, 4, "Pass","data");
+		} else {
+			write(9, 4, "Fail","data");
+		}
+	}
+
+}

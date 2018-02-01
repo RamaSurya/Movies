@@ -1,0 +1,64 @@
+
+
+@CinemaCafePage
+Feature: Check the Functionality of Cinema Cafe page
+Background:
+Given User is on the Cinema Cafe Page 
+	
+@title
+Scenario: Checking the title of the Cinema Cafe page
+When the Cinema Cafe Page is open
+Then Title of page should be Cinema Cafe 	
+	
+
+@ValidCredentials 
+Scenario: Checking Functionality of Login with valid credentials
+
+When User enters valid User ID and Password present in Database
+Then Redirect to the Admin Home or Customer Home
+
+
+@BlankUsername 
+Scenario: Checking Functionality of Login with blank User ID
+
+When User enters Password
+Then User gets message - User ID is blank.Please provide a valid Username.
+
+@BlankPassword
+Scenario: Checking Functionality of Login with blank Password
+
+When User enters User ID
+Then User gets message - Password is blank.Please provide a valid Password.
+
+
+@UserID<8
+Scenario: Checking Functionality of Login with Username less than 8 character
+
+When User enters User ID less than 8 character
+Then User gets message - Please provide a valid Username,less character.
+
+@UserID>50
+Scenario: Checking Functionality of Login with Username more than 50 character
+
+When User enters User ID more than 20 character
+Then User gets message - Please provide a valid Username, more character.
+
+
+@password<8
+Scenario: Checking Functionality of Login with Password less than 8 character
+
+When User enters Password less than 8 character
+Then User gets message - Please provide a valid Password, less character.
+
+@password>20
+Scenario: Checking Functionality of Login with Password more than 20 character
+
+When User enters Password more than 20 character
+Then User gets message - Please provide a valid Password, more character.
+
+@passwordspecial
+Scenario: Checking Functionality of Login with Password having Special character
+
+When User enters Password with Special Characters
+Then User gets message - Please provide a valid Password,special character.
+

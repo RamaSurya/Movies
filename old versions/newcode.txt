@@ -1,0 +1,121 @@
+ public ViewResult show()
+        {
+            sda = new SqlCommand("showproc", con);
+            con.Open();
+            SqlDataReader sdr = sda.ExecuteReader();
+            List<showdetails> li = new List<showdetails>();
+            while (sdr.Read())
+            {
+                showdetails sd = new showdetails()
+                {
+                    moviename = Convert.ToString(sdr[0]),
+                    date = Convert.ToDateTime(sdr[1]),
+                    starttime =Convert.ToDateTime(sdr[1].ToString()),
+                     endtime = Convert.ToDateTime(sdr[3].ToString())
+                };
+                li.Add(sd);
+            }
+            con.Close();
+          
+            return View(li);
+        }
+***************
+ 
+    @foreach (var item in Model)
+    {
+        @item.moviename
+        <br />
+        @item.date
+        <br />
+        @item.starttime
+         <br />
+        @item.endtime
+    }
+***********************
+public ActionResult updatemoviesss(string t2, string t3,string t4,string t5)
+        {
+            sda = new SqlCommand("updateproc @sid,@mname,@sdate,@stime,@etime", con);
+            con.Open();
+            //SqlParameter p6 = new SqlParameter("@sid", t1);
+            SqlParameter p7 = new SqlParameter("@mname", t2);
+            SqlParameter p8 = new SqlParameter("@sdate", t3);
+            SqlParameter p9 = new SqlParameter("@stime", t4);
+            SqlParameter p10 = new SqlParameter("@etime", t5);
+            //sda.Parameters.Add(p6);
+            sda.Parameters.Add(p7);
+            sda.Parameters.Add(p8);
+            sda.Parameters.Add(p9);
+            sda.Parameters.Add(p10);
+            sda.ExecuteNonQuery();
+            con.Close();
+          
+            return View();
+                                       
+        }
+*****************************************************
+ <form method="post">
+ 
+     
+       <input type="text" name="t2" value=@ViewBag.a /><br />
+        <br />
+      <input type="text" name="t3" value=@ViewBag.b /><br />
+        <br />
+       <input type="text" name="t4" value=@ViewBag.c /><br />
+       <br />
+       <input type="text" name="t5" value=@ViewBag.d /><br />
+    
+     <input type="submit" value="update/add" />
+
+
+         </form>
+
+
+
+
+
+
+****************************************************
+  public ActionResult up()
+        {
+            return View();
+            
+        }
+        [HttpPost]
+        public ActionResult up(string a,string b,string c,string d)
+        {
+          
+                sda = new SqlCommand("displayproc @name", con);             
+                 con.Open();          
+                SqlParameter p1 = new SqlParameter("@name", a);
+                sda.Parameters.Add(p1);
+                SqlDataReader sdr = sda.ExecuteReader();
+                List<showdetails> li = new List<showdetails>();
+                while (sdr.Read())
+                {
+                    showdetails sd = new showdetails()
+                    {
+                        moviename = Convert.ToString(sdr[0]),
+                        date = Convert.ToDateTime(sdr[1]),
+                        starttime = Convert.ToDateTime(sdr[1].ToString()),
+                        endtime = Convert.ToDateTime(sdr[3].ToString())
+                    };
+                    li.Add(sd);
+                    TempData["a"] = sdr[0];
+                    TempData["b"] = sdr[1];
+                    TempData["c"] = sdr[2];
+                    TempData["d"] = sdr[3];
+                }
+                sdr.Close();
+*******************************************************
+<form method="post">
+       <input type="text" name="a" value="@TempData["a"]" /><br />
+        <br />
+      <input type="text" name="b" value= "@TempData["b"]"/><br />
+        <br />
+       <input type="text" name="c" value="@TempData["c"]"/><br />
+       <br />
+       <input type="text" name="d" value="@TempData["d"]" /><br />
+    
+     <input type="submit" value="get"  />
+   
+         </form>

@@ -1,0 +1,6 @@
+http://172.16.170.72/cinemacafe1-----------------------cinemacafepage
+
+
+http://172.16.170.72/cinemacafe1#login----------------loginpage
+
+http://172.16.170.72/cinemacafe1/registration------------create new account page

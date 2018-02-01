@@ -1,0 +1,333 @@
+package com.login;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
+
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+public class UpdatePrice extends ObjectAccess {
+	public UpdatePrice() throws IOException {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	static String url="http://172.16.170.164/cinemacafe";
+	static String excel="C:/software/auomation/selenium/Cinema Cfe/Excelfiles/ForgotPassword.xlsx";
+
+	
+	
+	static WebDriver driver=new FirefoxDriver();
+	
+	static File f=new File(excel);
+	 static  FileInputStream f1;
+		static XSSFWorkbook wb;
+		static XSSFSheet sh;
+		public String  read(int r,int c, String sht) throws IOException
+		{
+			
+			  FileInputStream f1=new FileInputStream(f);
+				XSSFWorkbook wb=new XSSFWorkbook(f1);
+				XSSFSheet sh=wb.getSheet(sht);
+				String u="",p="";
+			          try
+						{
+							if(sh.getRow(r).getCell(c).getCellType()==0)
+							{
+								int m=(int) sh.getRow(r).getCell(c).getNumericCellValue();
+								u=String.valueOf(m);
+							}
+							else
+							{
+								u=sh.getRow(r).getCell(c).getStringCellValue();
+							}
+						}
+						catch(Exception e)
+						{
+							if(e.equals("NullPointerException"))
+								u=null;
+						}
+				
+				return u;
+				
+		}
+		public void write(int r,int c,String s, String sht) throws IOException
+		{
+			 FileInputStream f1=new FileInputStream(f);
+				XSSFWorkbook wb=new XSSFWorkbook(f1);
+				XSSFSheet sh=wb.getSheet(sht);
+				sh.getRow(r).createCell(c).setCellValue(s);
+				FileOutputStream fo=new FileOutputStream(new File(excel));
+				  wb.write(fo);
+				  fo.close();
+		}
+	
+		
+		public void status(int r, int c, String sht) throws IOException {
+			 if (read(r,c,sht).equals(read(r,(c+1), sht))) {
+			    	write(r, (c+2), "Pass",sht);
+				} else {
+					write(r, (c+2), "Fail",sht);
+				}
+		}
+
+
+
+
+@Given("^user should be on the UpdatePrice page$")
+public void user_should_be_on_the_UpdatePrice_page() throws IOException  {
+	
+	driver.get(url);
+	driver.findElement(getlocator("uid")).sendKeys(read(1,0,"data"));
+	   driver.findElement(getlocator("ans")).sendKeys(read(1,1,"data"));
+	   driver.findElement(getlocator("sub")).click();
+ 
+  
+    
+}
+
+@When("^Admin clicks on Home link$")
+public void Admin_clicks_on_Home_link()  {
+	driver.findElement(getlocator("home")).click();
+   
+}
+
+@Then("^Admin should be Redirected to the Admin Home page$")
+public void Admin_should_be_Redirected_to_the_Admin_Home_page() throws IOException  {
+	write(1, 2, driver.getTitle(),"data");
+	status(1, 1, "data");
+    
+}
+
+@When("^Admin clicks on Add Movie link$")
+public void Admin_clicks_on_Add_Movie_link() {
+	driver.findElement(getlocator("addmovie")).click();
+   
+}
+
+@Then("^Admin should be Redirected to the Update movie Page$")
+public void Admin_should_be_Redirected_to_the_Update_movie_Page1() throws IOException  {
+	write(2, 2, driver.getTitle(),"data");
+	status(2, 1, "data");
+}
+
+@When("^Admin clicks on Update Movie link$")
+public void Admin_clicks_on_Update_Movie_link()  {
+	driver.findElement(getlocator("updatemovie")).click();
+    
+}
+
+@Then("^Admin should be Redirected to  the Update movie Page$")
+public void Admin_should_be_Redirected_to_the_Update_movie_Page() throws IOException  {
+	write(3, 2, driver.getTitle(),"data");
+	status(3, 1, "data");
+   
+}
+
+@When("^Admin clicks on Update Price link$")
+public void Admin_clicks_on_Update_Price_link()  {
+	driver.findElement(getlocator("updateprice")).click();
+    
+}
+
+@Then("^Admin should be Redirected to same \\(Update Price \\)Page$")
+public void Admin_should_be_Redirected_to_same_Update_Price_Page() throws IOException  {
+	write(4, 2, driver.getTitle(),"data");
+	status(4, 1, "data");
+    }
+
+@When("^Admin clicks on LOGOUT link$")
+public void Admin_clicks_on_LOGOUT_link()  {
+	driver.findElement(getlocator("logout")).click();
+   
+}
+
+@Then("^Admin should be Redirected to the Cinema Cafe Page$")
+public void Admin_should_be_Redirected_to_the_Cinema_Cafe_Page() throws IOException {
+	write(5, 2, driver.getTitle(),"data");
+	status(5, 1, "data");
+   
+}
+
+@When("^Admin selects Seat type and Admin enters Price and Admin clicks on Update button$")
+public void Admin_selects_Seat_type_and_Admin_enters_Price_and_Admin_clicks_on_Update_button() throws IOException  {
+	
+	Select seattype = new Select(driver.findElement(By.name("type")));
+	seattype.selectByVisibleText("platinum");
+	 driver.findElement(getlocator("price")).sendKeys(read(2,0,"data"));
+	driver.findElement(getlocator("update")).click();
+ 
+   
+}
+
+@Then("^Admin gets message - Updated the price$")
+public void Admin_gets_message_Updated_the_price() throws IOException  {
+	
+	status(6, 1, "data");
+}
+
+@When("^Admin selects Seat type and Admin clicks on Update button$")
+public void Admin_selects_Seat_type_and_Admin_clicks_on_Update_button()  {
+	Select seattype = new Select(driver.findElement(By.name("type")));
+	seattype.selectByVisibleText("platinum");
+	driver.findElement(getlocator("update")).click();
+   
+}
+
+@Then("^Admin gets message - Price is blank.Please provide a price for seats$")
+public void Admin_gets_message_Price_is_blank_Please_provide_a_price_for_seats() throws IOException  {
+	
+	status(7, 1, "data");
+   
+}
+
+@When("^Admin selects Seat type and Admin enters Price having alphabets and Admin clicks on Update button$")
+public void Admin_selects_Seat_type_and_Admin_enters_Price_having_alphabets_and_Admin_clicks_on_Update_button() throws IOException  {
+	Select seattype = new Select(driver.findElement(By.name("type")));
+	seattype.selectByVisibleText("platinum");
+	 driver.findElement(getlocator("price")).sendKeys(read(2,0,"data"));
+	driver.findElement(getlocator("update")).click();
+ 
+}
+
+@Then("^User gets message -Please enter a number$")
+public void User_gets_message_Please_enter_a_number() throws IOException  {
+	status(7, 1, "data");
+    }
+
+@When("^Admin enters Seat type and Admin enters Price having special cahracters and Admin clicks on Update button$")
+public void Admin_enters_Seat_type_and_Admin_enters_Price_having_special_cahracters_and_Admin_clicks_on_Update_button() throws IOException  {
+	Select seattype = new Select(driver.findElement(By.name("type")));
+	seattype.selectByVisibleText("platinum");
+	 driver.findElement(getlocator("price")).sendKeys(read(2,0,"data"));
+	driver.findElement(getlocator("update")).click();
+ 
+    
+}
+
+@Then("^Admin gets message -Please enter a number$")
+public void Admin_gets_message_Please_enter_a_number() throws IOException {
+	status(7, 1, "data");
+    
+}
+
+@When("^User enters Seat type and user enters Price less than (\\d+) and user clicks on Update button$")
+public void User_enters_Seat_type_and_user_enters_Price_less_than_and_user_clicks_on_Update_button(int arg1) throws IOException  {
+	
+	Select seattype = new Select(driver.findElement(By.name("type")));
+	seattype.selectByVisibleText("platinum");
+	 driver.findElement(getlocator("price")).sendKeys(read(2,0,"data"));
+	driver.findElement(getlocator("update")).click();
+ 
+    
+    
+}
+
+@Then("^User gets message -Price must be greater than or equal to (\\d+)$")
+public void User_gets_message_Price_must_be_greater_than_or_equal_to(int arg1) throws IOException  {
+	
+	status(7, 1, "data");
+   
+}
+
+@When("^User enters Seat type  and user enters Price greater than (\\d+) and user clicks on Update button$")
+public void User_enters_Seat_type_and_user_enters_Price_greater_than_and_user_clicks_on_Update_button(int arg1) throws IOException  {
+	
+	Select seattype = new Select(driver.findElement(By.name("type")));
+	seattype.selectByVisibleText("platinum");
+	 driver.findElement(getlocator("price")).sendKeys(read(2,0,"data"));
+	driver.findElement(getlocator("update")).click();
+   
+}
+
+@Then("^User gets message -value must be less than or equal to (\\d+)$")
+public void User_gets_message_value_must_be_less_than_or_equal_to(int arg1) throws IOException  {
+	status(7, 1, "data");
+    
+}
+
+@When("^clicks the Seat type dropdown$")
+public void clicks_the_Seat_type_dropdown() {
+   
+}
+
+@Then("^User gets (\\d+) options - platinum, silver and gold$")
+public void User_gets_options_platinum_silver_and_gold(int arg1)  {
+  
+}
+
+@When("^User clicks on Seat type dropdown$")
+public void User_clicks_on_Seat_type_dropdown()  {
+    
+}
+
+@Then("^User gets to select only one options$")
+public void User_gets_to_select_only_one_options() {
+   
+}
+
+@When("^User counts number  of linkss$")
+public void User_counts_number_of_linkss() throws IOException  {
+	
+	java.util.List<WebElement> lnks=driver.findElements(getlocator("links"));
+	String lnk=String.valueOf(lnks.size());
+	write(1, 2, "","");
+    
+}
+
+@Then("^links should  be equal to (\\d+)$")
+public void links_should_be_equal_to(int arg1)  {
+   
+}
+
+@When("^User counts no. of the dropdowns$")
+public void User_counts_no_of_the_dropdowns()  {
+   
+}
+
+@Then("^no of dropdowns must be equal to (\\d+)$")
+public void no_of_dropdowns_must_be_equal_to(int arg1) {
+   
+}
+
+@When("^User counts no. of textboxes$")
+public void User_counts_no_of_textboxes() throws IOException  {
+	java.util.List<WebElement> txt=driver.findElements(getlocator("textbox"));
+	String txtb=String.valueOf(txt.size());
+	write(1, 2, "","");
+    
+}
+
+@Then("^textboxes should  be equal to (\\d+)$")
+public void textboxes_should_be_equal_to(int arg1)  {
+    
+}
+
+@When("^user counts total number of buttons in UpdatePrice page$")
+public void user_counts_total_number_of_buttons_in_UpdatePrice_page() throws IOException  {
+	java.util.List<WebElement> buttons=driver.findElements(getlocator("button"));
+	String buttonz=String.valueOf(buttons.size());
+	write(1, 2, "","");
+    
+    
+}
+
+@Then("^B should  be equal to (\\d+)$")
+public void B_should_be_equal_to(int arg1) {
+    
+}
+
+
+
+}

@@ -1,0 +1,43 @@
+@adminhome
+Feature: checking the functionality of Admin Home page
+Background: Admin should be on Admin Home page
+
+@title
+Scenario: checking the title of Admin Home page
+When the admin is on Admin Home page
+Then the title should be Admin Home
+
+@Home
+Scenario: checking the funtionality of Home link
+Given Home link is displayed on Admin Home page
+When Admin clicks on Home link
+Then Admin will Redirect to same(Admin Home) page
+
+@AddMovie
+Scenario: checking the functionality of Add Movie link
+Given Add Movie link is displayed on Admin Home page
+When Admin clicks on Add Movie link
+Then Admin will Redirect to the Add Movies Page
+
+@Updatemovie
+Scenario: checking the functionality of Update Movie link
+Given Update Movie link is displayed on Admin Home page
+When Admin clicks on Update Movie link
+Then Admin will Redirect to the Update movie Page
+
+@Updateprice
+Scenario: checking the functionality of Update Price link
+Given Update Price link is displayed on Admin Home page
+When Admin clicks on Update Price link
+Then Admin will Redirect to the Update Price Page
+
+@LOGOUT
+Scenario: checking the functionality of LOGOUT link
+Given LOGOUT link is displayed on Admin Home page
+When Admin clicks on LOGOUT link
+Then Admin will Redirect to the Cinema Cafe Page
+
+@no.oflinks
+Scenario: checking for the number of links
+When Admin is on Admin Home page
+Then the number of links should be 5

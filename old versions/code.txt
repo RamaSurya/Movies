@@ -1,0 +1,133 @@
+SqlConnection con= new SqlConnection("server=172.16.170.106;database=MovieTickets;uid=sa;pwd=Passw0rd@12");
+        SqlCommand sda;
+
+ public ViewResult Index()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ViewResult Index(string t1,string t2,string t3,string t4)
+        {
+
+            sda = new SqlCommand("insertproc @name,@mob,@user,@pawd", con);
+            con.Open();    
+            SqlParameter p1 = new SqlParameter("@name", t1);
+            SqlParameter p2 = new SqlParameter("@mob", t2);
+            SqlParameter p3 = new SqlParameter("@user", t3);
+            SqlParameter p4 = new SqlParameter("@pawd", t4);
+            sda.Parameters.Add(p1);
+            sda.Parameters.Add(p2);
+            sda.Parameters.Add(p3);
+            sda.Parameters.Add(p4);
+            sda.ExecuteNonQuery();
+            con.Close();
+
+            return View();
+           
+           
+        }
+        public ViewResult loginpage()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ViewResult loginpage(string t1, string t2)
+        {
+            sda = new SqlCommand("loginproc @user,@pawd", con);
+           
+            SqlParameter p1 = new SqlParameter("@user", t1);
+            SqlParameter p2 = new SqlParameter("@pawd", t2);
+            
+            sda.Parameters.Add(p1);
+            sda.Parameters.Add(p2);
+            con.Open();
+            int result=(int)sda.ExecuteScalar();
+           if(result==1)
+           {
+               return View ("index");
+           }
+              
+           
+            con.Close();
+            return View();
+        }
+    }
+******************************************************************************************* 
+ @foreach (var item in Model)
+    {
+        @item.showid
+        <br />
+        @item.moviename
+        <br />
+        @item.timing
+    }
+
+
+
+***********
+public class showdetails
+    {
+        public int showid{get;set;}
+        public string moviename { get; set; }
+        public DateTime timing { get;set;}
+    }
+*****************
+ public ViewResult show()
+        {
+            sda = new SqlCommand("showproc", con);
+            con.Open();
+            SqlDataReader sdr = sda.ExecuteReader();
+            List<showdetails> li = new List<showdetails>();
+            while (sdr.Read())
+            {
+                showdetails sd = new showdetails()
+                {
+                    showid = Convert.ToInt32(sdr[0]),
+                    moviename = Convert.ToString(sdr[1]),
+                    timing = Convert.ToDateTime(sdr[2])
+                };
+                li.Add(sd);
+            }
+            con.Close();
+            return View(li);
+        }
+***************************************************************************cancellllllllllllllllll
+form method="post">
+            enter userid<input type="text" name="t1" /><br /><br />
+           
+            enter Booking id <input type="text" name="t2" /><br /><br />
+   
+           
+            <input type ="submit" value="cancel"></>
+
+
+            </form>
+******************************
+ public ViewResult cancel()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ViewResult cancel(string t1,string t2)
+        {
+            sda = new SqlCommand("cancelproc @user, @bkid", con);
+
+            SqlParameter p1 = new SqlParameter("@user", t1);
+            SqlParameter p2 = new SqlParameter("@bkid", t2);
+
+            sda.Parameters.Add(p1);
+            sda.Parameters.Add(p2);
+            con.Open();
+            sda.ExecuteNonQuery();
+           
+            con.Close();
+
+            return View();
+
+           
+        }
+***************************************************************************
+
+
+
+   

@@ -1,0 +1,291 @@
+﻿@if ((Session["suserid"] != null))
+{
+    if (Session["suserid"].ToString() != "admin@admin.com")
+    {
+        Response.Redirect("/home/customerhome");
+
+    }
+}
+else if (Session["suserid"] == null)
+{
+    Response.Redirect("/home/Index");
+}
+
+
+ <!DOCTYPE html>
+<html lang="en" class=" js no-touch">
+<head>
+  <title>Update Movie </title>
+    <script src="~/js/UpdateMovieValidation.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+@*  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,600|Raleway:600,300|Josefin+Slab:400,700,600italic,600,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="css/slick-team-slider.css"/>
+  <link rel="stylesheet" type="text/css" href="css/style.css">*@
+
+
+      <link rel="stylesheet" href="~/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="~/css/font-awesome.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,600|Raleway:600,300|Josefin+Slab:400,700,600italic,600,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="~/css/slick-team-slider.css"/>
+  <link rel="stylesheet" type="text/css" href="~/css/style.css">
+
+
+    
+  <!-- =======================================================
+        Theme Name: Tempo
+        Theme URL: https://bootstrapmade.com/tempo-free-onepage-bootstrap-theme/
+        Author: BootstrapMade.com
+        Author URL: https://bootstrapmade.com
+    ======================================================= -->
+</head>
+<body>
+	<!--HEADER START-->
+	<div class="main-navigation navbar-fixed-top">
+		<nav class="navbar navbar-default">
+			<div class="container">
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+			    <span class="icon-bar"></span>
+			    <span class="icon-bar"></span>
+			    <span class="icon-bar"></span>
+			  </button>
+			  <a class="navbar-brand">Cinema Cafe</a>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+			  <ul class="nav navbar-nav navbar-right">
+			    
+			   
+                 <li class="active"><a href="~/adminhome">Home</a></li>
+			    <li><a href="~/addmovie">Add Movie</a></li>
+                  <li><a href="~/updatemovies">Update Movie</a></li>
+			    <li><a href="~/updateprice">Update Price</a></li>
+                <li><a href="~/logout">LOGOUT</a></li>
+                  
+			  </ul>
+			</div>
+		  </div>
+		</nav>
+	</div>
+	<!--HEADER END-->
+
+	<!--BANNER START-->
+	<div id="banner" class="section-padding">
+		<div class="container">
+			<div class="row">
+				<div class="jumbotron">
+				 
+                    <div class="form-sec">
+                   
+                	<form method="post" class="registerForm" onsubmit="return UpdateMovieValidate()">
+                    	<div class="col-md-4 form-group">
+                            <label style="color:white">Show Id</label>
+                          <br /> <input type="text" name="showid" class="form-control text-field-box" id="showid" value=" @ViewBag.Message_For_Admin_Session"  data-rule="minlen:5"  data-msg="Please enter the name" readonly="readonly"/>
+                            <div class="validation"></div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label style="color:white">Movie Name</label>
+                            <input type="text" name="moviename" class="form-control text-field-box" id="moviename" value=@ViewBag.b placeholder="moviename" data-rule="minlen:5" data-msg="Please enter the moviename" />
+                           <br />  <label id="ERR_001" style="visibility:hidden;color:lightblue"> Please provide a name for the movie.</label><br />
+                             <label id="ERR_001.1" style="visibility:hidden;color:lightblue"> Range is 3 to 50</label>
+                            <div class="validation"></div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label style="color:white">Date</label>
+                            <input type="date" name="date" class="form-control text-field-box" id="date" value=@ViewBag.c data-msg="Please enter the date"  data-fv-date-min="@DateTime.Now"/><br /><br />
+                             <label id="ERR_002" style="visibility:hidden;color:lightblue"> Please provide a date for the movie.</label><br />
+                             <label id="ERR_00" style="visibility:hidden;color:lightblue"> dummy</label>
+                             <label id="ERR" style="visibility:hidden;color:lightblue"> dummy</label>
+                            <div class="validation"></div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label style="color:white">start time</label>
+                           <br /><input type="time" name="starttime" class="form-control text-field-box" id="starttime"  value=@ViewBag.d data-msg="Please enter the starting time" /><br />
+                             <label id="ERR_003" style="visibility:hidden;color:lightblue"> Please provide the starting time of movie.</label><br />
+                            <div class="validation"></div>
+                        </div>
+                          
+                           <div class="col-md-4 form-group">
+                                  <label style="color:white">End time</label>
+                            <br /><input type="time" name="endtime" class="form-control text-field-box" id="endtime"  value=@ViewBag.e data-msg="Please enter the show end time" />
+                             <label id="ERR_004" style="visibility:hidden;color:lightblue"> Please provide the ending time of movie. </label><br />
+                                  <div class="validation"></div>
+                        </div>
+                          
+                       
+                        <div>
+                           @* <button class="button-medium" id="contact-submit" type="submit" name="update">update</button>*@
+                     <br /> <input type ="submit" class="button-medium" value="Update" />
+                       <label style="color:green">@ViewBag.Message_For_Updating_Movies </label>
+                            </div>
+                    </form>
+                </div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--BANNER END-->
+
+	<!--CTA1 START-->
+	<div class="cta-1">
+		<div class="container">
+			<div class="row text-center white">
+				
+			</div>
+		</div>
+	</div>
+	<!--CTA1 END-->
+
+	<!--SERVICE START-->
+	<div id="service" class="section-padding">
+		<div class="container">
+			<div class="row">
+				<div class="page-title text-center">
+					<h1>Our Service</h1>
+					<p>Movie theater chain, offering state-of-the-art sound & projection technology. </p>
+					<hr class="pg-titl-bdr-btm"></hr>
+				</div>
+				<div class="col-md-4">
+					<div class="service-box">
+						<div class="service-icon"><i class="fa fa-picture-o"></i></div>
+						<div class="service-text">
+							<h3>Design</h3>
+							<p> A great variety of films are shown , ranging from animated films for children, blockbusters for general audiences and documentaries for patrons who are interested in non-fiction topics.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="service-box">
+						<div class="service-icon"><i class="fa fa fa-code"></i></div>
+						<div class="service-text">
+							<h3>combo offer</h3>
+							<p> for every first booking food combo is free</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="service-box">
+						<div class="service-icon"><i class="fa fa-diamond"></i></div>
+						<div class="service-text">
+							<h3>hi tech theatre</h3>
+							<p> have 5D facilities,sound woofers and hi definition projection</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--SERVICE END-->
+
+	<!--PORTFOLIO START-->
+	<div id="portfolio" class="section-padding">
+		<div class="container">
+			<div class="row">
+				<div class="page-title text-center">
+					<h1>Our Previous Works</h1>
+					<p>Showing all New movies <br>grab your seat </p>
+					<hr class="pg-titl-bdr-btm"></hr >
+				</div>
+				<div class="port-sec">
+					
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--PORTFOLIO END-->
+
+	<!--TEAM START-->
+	<div id="about" class="section-padding">
+		<div class="container">
+			<div class="row">
+				<div class="page-title text-center">
+					<h1>Meet Our Team</h1>
+					<p>Ravi Teja <br> Surya <br>soumya<br>Aleena<br>Marilla<br>contact:0454-9865321<br>email:cinemacafe@gmail.com</p>
+					<hr class="pg-titl-bdr-btm"></hr>
+				</div>
+				
+					</div>
+					
+						</div>
+					
+		</div>
+	
+	<!--TEAM END-->
+    
+	<!--CTA2 START-->
+	<div class="cta2">
+		<div class="container">
+			<div class="row white text-center">
+				<h3 class="wd75 fnt-24">Every great film should seem new every time you see it - Robert Egert</h3>
+				<p class="cta-sub-title"></p>
+				<a href="#" class="btn btn-default">go up!!!</a>
+			</div>
+		</div>
+	</div>
+	<!--CTA2 END-->
+
+	<!--CONTACT START-->
+	
+	<!--CONTACT END-->
+    <!--login START-->
+	<div id="login" class="section-padding">
+		<div class="container">
+			<div class="row">
+				<div class="page-title text-center">
+					
+					
+					<hr class="pg-titl-bdr-btm"></hr>
+				</div>
+                                
+				
+			</div>
+		</div>
+	</div>
+	<!--CONTACT END-->
+
+	<!--FOOTER START-->
+	<footer class="footer section-padding">
+		<div class="container">
+			<div class="row">
+				<div style="visibility: visible; animation-name: zoomIn;" class="col-sm-12 text-center wow zoomIn">
+					
+					
+					</div>																
+				</div><!--- END COL -->
+			</div><!--- END ROW -->
+		</div><!--- END CONTAINER -->
+	</footer>
+	<!--FOOTER END-->
+	<div class="footer-bottom">
+		<div class="container">
+			<div style="visibility: visible; animation-name: zoomIn;" class="col-md-12 text-center wow zoomIn">
+				<div class="footer_copyright">
+					<p> © Copyright, All Rights Reserved.</p>					
+					<div class="credits">
+                        <!-- 
+                            All the links in the footer should remain intact. 
+                            You can delete the links only if you purchased the pro version.
+                            Licensing information: https://bootstrapmade.com/license/
+                            Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Tempo
+                        -->
+                        
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+  	<script src="js/jquery.min.js"></script>
+  	<script src="js/jquery.easing.min.js"></script>
+  	<script src="js/bootstrap.min.js"></script>
+  	<script src="js/jquery.mixitup.js" type="text/javascript"></script>
+	<script type="text/javascript" src="js/slick.min.js"></script>
+	<script type="text/javascript" src="js/custom.js"></script>
+    <script src="contactform/contactform.js"></script>
+    
+</body>
+</html>
+

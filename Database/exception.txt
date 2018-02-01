@@ -1,0 +1,21 @@
+ catch(Exception e)
+            {
+                if (e.Message.Contains("Object reference not set to an instance of an object"))
+                return "Invalid Userid or Password";
+            }
+            return "Not Connected";
+
+
+
+
+
+
+ catch(Exception ex)
+            {
+                if(ex.Message.Contains("Violation of PRIMARY KEY constraint"))
+                return "This user already exists";//not registered
+                else if(ex.Message.Contains("Object reference not set to an instance of an object"))
+                    return "Unable to register";
+            }
+
+            return "Not Connected";    

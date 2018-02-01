@@ -1,0 +1,10 @@
+C:\online_ticket\layernewproject\online_movie\common\bin\Release\common.dll
+C:\online_ticket\layernewproject\online_movie\common\bin\Release\common.pdb
+C:\online_ticket\layernewproject\online_movie\common\obj\Release\common.csprojResolveAssemblyReference.cache
+C:\online_ticket\layernewproject\online_movie\common\obj\Release\common.dll
+C:\online_ticket\layernewproject\online_movie\common\obj\Release\common.pdb
+C:\trainingcourse\online_movie_new\common\bin\Release\common.dll
+C:\trainingcourse\online_movie_new\common\bin\Release\common.pdb
+C:\trainingcourse\online_movie_new\common\obj\Release\common.csprojResolveAssemblyReference.cache
+C:\trainingcourse\online_movie_new\common\obj\Release\common.dll
+C:\trainingcourse\online_movie_new\common\obj\Release\common.pdb

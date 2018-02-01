@@ -1,0 +1,15 @@
+C:\online_ticket\layernewproject\online_movie\Business_entities\bin\Debug\Business_entities.dll
+C:\online_ticket\layernewproject\online_movie\Business_entities\bin\Debug\Business_entities.pdb
+C:\online_ticket\layernewproject\online_movie\Business_entities\obj\Debug\Bussiness_entities.csprojResolveAssemblyReference.cache
+C:\online_ticket\layernewproject\online_movie\Business_entities\obj\Debug\Business_entities.dll
+C:\online_ticket\layernewproject\online_movie\Business_entities\obj\Debug\Business_entities.pdb
+C:\online_ticket\online_movie_new\Business_entities\bin\Debug\Business_entities.dll
+C:\online_ticket\online_movie_new\Business_entities\bin\Debug\Business_entities.pdb
+C:\online_ticket\online_movie_new\Business_entities\obj\Debug\Bussiness_entities.csprojResolveAssemblyReference.cache
+C:\online_ticket\online_movie_new\Business_entities\obj\Debug\Business_entities.dll
+C:\online_ticket\online_movie_new\Business_entities\obj\Debug\Business_entities.pdb
+C:\online_ticket\online_movie_ticket(28-5-2017)latest\Business_entities\bin\Debug\Business_entities.dll
+C:\online_ticket\online_movie_ticket(28-5-2017)latest\Business_entities\bin\Debug\Business_entities.pdb
+C:\online_ticket\online_movie_ticket(28-5-2017)latest\Business_entities\obj\Debug\Bussiness_entities.csprojResolveAssemblyReference.cache
+C:\online_ticket\online_movie_ticket(28-5-2017)latest\Business_entities\obj\Debug\Business_entities.dll
+C:\online_ticket\online_movie_ticket(28-5-2017)latest\Business_entities\obj\Debug\Business_entities.pdb

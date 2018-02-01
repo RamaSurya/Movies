@@ -1,0 +1,68 @@
+ [TestMethod]
+        public void testmethod5()           //add movie
+        {
+            
+            addmoviecls am = new addmoviecls();
+            am.showid = "13245";
+            am.moviename = "mirchi";
+            am.date = Convert.ToDateTime("2017-12-01");
+            am.starttime = DateTime.Parse(("03:30 PM").ToString());
+            am.endtime = DateTime.Parse(("06:00 PM").ToString());
+            Datacls da = new Datacls();
+            string expected = "added";
+            string actual = da.movieadd(am);
+            Assert.AreEqual(expected, actual);
+        }
+****************************************************************************
+
+
+  [TestMethod]
+        public void TestMethodForAddingMovieController()//addingmovies
+        {
+           
+            addmoviecls am = new addmoviecls();
+            am.showid = "3256";
+            am.moviename = "swami";
+            am.date = Convert.ToDateTime("01-06-2017");
+            am.starttime = Convert.ToDateTime("01:03 pm");
+            am.endtime = Convert.ToDateTime("03:20 pm");
+            ViewResult result = c.Index(am.showid,am.moviename,am.date.ToString(),am.starttime.ToString(),am.endtime.ToString()) as ViewResult;
+            var expected = " inserted the record";
+            Assert.AreEqual(expected,c.ViewBag.a);
+
+        }
+        [TestMethod]
+        public void TestMethodForAdminLoginController() //admin login
+        {
+           
+            logincls lg = new logincls();
+            lg.userid = "admin@admin.com";
+            lg.password = "admin123";         
+            ViewResult result = hc.Index(lg.userid, lg.password) as ViewResult;
+            Assert.AreEqual("adminhome", result.ViewName);
+        }
+        [TestMethod]
+        public void TestMethodForEditProfileController()//Edit profile Controller
+        {
+            Controllers.EditProfileController ep = new Controllers.EditProfileController();
+           
+            registrationcls r = new registrationcls();
+            r.userid = "mahi@gmailcom";
+            r.name = "swami";
+            r.mobile = "9876541234";
+            r.password = "uma";
+            r.answer = "answer";
+            ViewResult result = ep.Index(r.userid,r.name,r.mobile,r.password,r.answer) as ViewResult;
+            Assert.AreEqual("Data updated Successfully", ep.ViewBag.a);
+        }
+        [TestMethod]
+        public void TestMethodForGotPasswordController()//forgot password
+        {
+            Controllers.forgotpasswordController fg = new Controllers.forgotpasswordController();
+            
+            forgetpasswordcls fgpc = new forgetpasswordcls();
+            fgpc.userid = "ab@ab.com";
+            fgpc.answer = "asdf";
+            ViewResult result= fg.Index(fgpc.userid,fgpc.answer) as ViewResult;
+            Assert.AreEqual("invalid userid or answer", fg.ViewBag.a);
+        }

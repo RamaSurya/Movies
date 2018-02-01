@@ -1,0 +1,211 @@
+@Registration
+Feature: Check the functionality of Registration page
+Background: 
+Given: User is on Registration Page
+
+@CANCEL
+Scenario: check the functionality of  CANCEL link
+Given CANCEL is displayed on the Registration page
+When User clicks on CANCEL link
+Then USER should redirect to the Cinema Cafe page
+	
+@validRegistration
+Scenario: Checking the functionality of Registration page with valid credentials
+When User enters valid User ID
+And User enters valid Name
+And User enters valid Mobile
+And User enters valid Password
+And User enters valid Answer
+And click on Register button
+Then It should redirect to Cinema Cafe Page
+
+@blankuserid
+Scenario: checking the functionality of Registration page with blank User ID
+When User enters valid Name
+And User enters valid Mobile
+And User enters valid Password
+And User enters valid Answer
+And click on Register button
+Then User gets message - User Id is blank. Please provide a User Id
+
+@blankname
+Scenario: checking the functionality of Registration page with blank Name
+When User enters valid User ID
+And User enters valid Mobile
+And User enters valid Password
+And User enters valid Answer
+And click  on Register button
+Then User gets message - Name is blank. Please provide a Name.
+
+@blankpassword
+Scenario:  checking the functionality of Registration page with blank Password
+When User enters valid User ID
+And User enters valid Name
+And User enters valid Mobile
+And User enters valid Answer
+And click  on Register button
+Then User gets message - Password is blank Please provide a Password.
+
+@blankanswer
+Scenario:  checking the functionality of Registration page with blank Answer
+When User enters valid User ID
+And User enters valid Name
+And User enters valid Mobile
+And User enters valid Password
+And click  on Register button
+Then User gets message - Answer is blank. Please provide an Answer.
+
+@invaliduserid
+Scenario:  checking the functionality of Registration page with invalid User ID
+When user enters invalid User ID
+And User enters valid Name
+And User enters valid Mobile
+And User enters valid Password
+And User enters valid Answer
+And click  on Register button
+Then User gets message - User Id should be an email id (or) user Id already exists
+ 
+
+@Name<5
+Scenario: checking the functionality of Registration page with Name less than 5 charecters
+When User enters valid User ID
+And User enters Name less than 5 charecters
+And User enters valid Mobile
+And User enters valid Password
+And User enters valid Answer
+And click  on Register button
+Then User gets message - Name is invalid Please enter a valid Name
+
+
+
+@Name>20
+Scenario: checking the functionality of Registration page with Name greater than 20 charecters
+When User enters valid User ID
+And User enters Name greater than 20 charecters
+And User enters valid Mobile
+And User enters valid Password
+And User enters valid Answer
+And click  on Register button
+Then User gets message - Name is invalid Please enter a valid Name
+
+@Namedigit
+Scenario: checking the functionality of Registration page with Name having number
+When User enters valid User ID
+And User enters Name with numbers
+And User enters valid Mobile
+And User enters valid Password
+And User enters valid Answer
+And click  on Register button
+Then User gets message - Name is invalid Please enter a valid Name
+
+@Namespecial
+Scenario: checking the functionality of Registration page with Name having special characters
+When User enters valid User ID
+And User enters Name with special characters
+And User enters valid Mobile
+And User enters valid Password
+And User enters valid Answer
+And click  on Register button
+Then User gets message - Name is invalid Please enter a valid Name
+
+@Mobile<10
+Scenario: checking the functionality of Registration page with Mobile less than 10 numbers
+When User enters valid User ID
+And User enters valid Name
+And User enters Mobile less than 10 numbers
+And User enters valid Password
+And User enters valid Answer
+And click  on Register button
+Then User gets message - Mobile number is invalid Please enter a valid Mobile number
+
+@Mobile>12
+Scenario: checking the functionality of Registration page with Mobile greater than 12 charecters
+When User enters valid User ID
+And User enters valid Name
+And User enters Mobile greater than 12 numbers
+And User enters valid Password
+And User enters valid Answer
+And click  on Register button
+Then User gets message - Mobile number is invalid Please enter a valid Mobile number
+
+@Mobilealphabet
+Scenario: checking the functionality of Registration page with Mobile having alphabets
+When User enters valid User ID
+And User enters valid Name
+And User enters Mobile having alphabet
+And User enters valid Password
+And User enters valid Answer
+And click  on Register button
+Then User gets message - Mobile number is invalid Please enter a valid Mobile number
+
+@Mobilespecial
+Scenario: checking the functionality of Registration page with Mobile having special characters
+When User enters valid User ID
+And User enters valid Name
+And User enters Mobile which includes special characters
+And User enters valid Password
+And User enters valid Answer
+And click on Register button
+Then User gets message - Mobile number is invalid Please enter a valid Mobile number
+
+
+@Password<5
+Scenario: checking the functionality of Registration page with Password less than 5 charecters
+When User enters valid User ID
+And User enters valid Name
+And User enters valid Mobile
+And User enters Password less than 5 charecters
+And User enters valid Answer
+And click  on Register button
+Then User gets message - Password is invalid Please enter a valid Password
+
+@Password>20
+Scenario: checking the functionality of Registration page with Password greater than 20 charecters
+When User enters valid User ID
+And User enters valid Name
+And User enters valid Mobile
+And  User enters Password greater than 20 characters
+And User enters valid Answer
+And click  on Register button
+Then User gets message - Password is invalid Please enter a valid Password
+
+@Passwordspecial
+Scenario: checking the functionality of Registration page with Password having special character
+When User enters valid User ID
+And User enters valid Name
+And User enters valid Mobile
+And  User enters Password with special characters
+And User enters valid Answer
+And click  on  Register button
+Then User gets message - Password is invalid Please enter a valid Password
+
+@Answer<5
+Scenario: checking the functionality of Registration page with Answer less than 5 charecters
+When User enters valid User ID
+And User enters valid Name
+And User enters valid Mobile
+And User enters valid Password
+And User enters Answer less than 5 charecters
+And click  on Register button
+Then User gets message - Answer is invalid Please enter a valid Answer
+
+@Answer>100
+Scenario: checking the functionality of Registration page with Answer greater than 100 charecters
+When User enters valid User ID
+And User enters valid Name
+And User enters valid Mobile
+And User enters valid Password
+And User enters Answer greater than 100 charecters
+And click  on Register button
+Then User gets message - Answer is invalid Please enter a valid Answer
+
+
+@Answerspecial
+Scenario: checking the functionality of Registration page with Answer having special charcaters
+When User enters valid User ID
+And User enters valid Name
+And User enters valid Mobile
+And User enters valid Password
+And User enters Answer having special character
+And click  on Register button
+Then User gets message - Answer is invalid Please enter a valid Answer

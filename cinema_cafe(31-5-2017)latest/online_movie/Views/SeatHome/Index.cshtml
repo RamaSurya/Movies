@@ -1,0 +1,419 @@
+﻿@if (Session["suserid"] == null)
+{
+    Response.Redirect("~/home");
+}
+
+<!DOCTYPE html>
+<html lang="en" class=" js no-touch">
+  <title>Seat Booking</title>
+    <head>
+        <link rel="stylesheet" href="~/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="~/css/font-awesome.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,600|Raleway:600,300|Josefin+Slab:400,700,600italic,600,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="~/css/slick-team-slider.css"/>
+  <link rel="stylesheet" type="text/css" href="~/css/style.css">
+        <link href="~/css/seatStyle.css" rel="stylesheet" />
+        <script src="~/Scripts/jquery-1.7.1.js"></script>
+        <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+        @*<script src="~/js/seats.js"></script>*@
+       
+    </head>
+        
+    <script>
+
+        
+        $(function() {
+            var settings = {
+                rows: 5,
+                cols: 5,
+                rowCssPrefix: 'row-',
+                colCssPrefix: 'col-',
+                seatWidth: 35,
+                seatHeight: 35,
+                seatCss: 'seat',
+                selectedSeatCss: 'selectedSeat',
+                selectingSeatCss: 'selectingSeat'
+            };
+
+            var init = function (Seat) {
+                alert(Seat);
+                var reservedSeat = Seat.map(function (Seat) {
+                    return parseInt(Seat, 10);
+                });
+                var str = [], seatNo, className;
+                for (i = 0; i < settings.rows; i++) {
+                    for (j = 0; j < settings.cols; j++) {
+                        seatNo = (i + j * settings.rows + 1);
+                        className = settings.seatCss + ' ' + settings.rowCssPrefix + i.toString() + ' ' + settings.colCssPrefix + j.toString();
+                        if ($.isArray(reservedSeat) && $.inArray(seatNo, reservedSeat) != -1) {
+                            className += ' ' + settings.selectedSeatCss;
+                        }
+                        str.push('<li class="' + className + '"' +
+                                  'style="top:' + (i * settings.seatHeight).toString() + 'px;left:' + (j * settings.seatWidth).toString() + 'px">' +
+                                  '<a title="' + seatNo + '">' + seatNo + '</a>' +
+                                  '</li>');
+
+                    }
+                }
+                $('#place').html(str.join(''));
+            };
+            //case I: Show from starting
+            //init();
+
+            //Case II: If already booked
+            // var bookedSeats = 'ViewBag.seats';//=[5,6,7]
+            //  var array = ViewBag.seats;
+            //for (var i = 0; i < array.length; i++) {
+            // //    bookedSeats[i] = array[i];
+            // }
+
+
+
+            //var bookedSeats = '(ViewBag.seats)';
+            // alert(ViewBag.arraylength);
+            var seatcount = document.getElementById("count").value;
+           // alert(seatcount);
+            var bookedSeats = [];
+            for (var i = 0; i < seatcount; i++) {
+                bookedSeats[i] = document.getElementById("t" + (i + 1)).value;
+            
+             ///  alert( document.getElementById("t" + (i + 1)).value);
+                 //alert(bookedSeats[i].value);
+                // init(document.getElementById("t" + i).value);
+            }
+          
+            init(bookedSeats);
+            //var con = function (bookedSeats) {
+                
+            //    for (var i = 0; i < 5; i++) {
+            //        reserved[i] = parseInt(bookedseats[i],10);
+
+            //    }
+            //    init(reserved);
+            //};
+
+
+            $('.' + settings.seatCss).click(function () {
+                if ($(this).hasClass(settings.selectedSeatCss)) {
+                    alert('This seat is already reserved');
+                }
+                else {
+                    $(this).toggleClass(settings.selectingSeatCss);
+                }
+            });
+
+            $('#btnShow').click(function () {
+                var str = [];
+                $.each($('#place li.' + settings.selectedSeatCss + ' a, #place li.' + settings.selectingSeatCss + ' a'), function (index, value) {
+                    str.push($(this).attr('title'));
+                });
+                alert(str.join(','));
+            })
+
+            $('#btnShowNew').click(function () {
+                var str = [], item;
+                $.each($('#place li.' + settings.selectingSeatCss + ' a'), function (index, value) {
+                    item = $(this).attr('title');
+                    str.push(item);
+                });
+                alert(str.join(','));
+            })
+
+
+
+            $('#conf').click(
+           function () {
+               //var tb1 = $("tbb").val();
+               //$("tbb").val(tb1+","+$(this).text())//$('#msg').html($('input:textbox').val());
+               var str1 = [], item;
+               $.each($('#place li.' + settings.selectingSeatCss + ' a'), function (index, value) {
+                   item = $(this).attr('title');
+                   str1.push(item)
+                   //$("#tbb").val(str1.join(',')+$(this).text);
+                   document.getElementById("tbb").value = str1.join(',');
+                   document.getElementById("tbb1").value = str1.length;
+                   document.getElementById("amm").value = (str1.length) * 50;
+
+               });
+           });
+        });
+
+        </script>  
+    <body>
+      
+        
+	<!--HEADER START-->
+	<div class="main-navigation navbar-fixed-top">
+		<nav class="navbar navbar-default">
+			<div class="container">
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+			    <span class="icon-bar"></span>
+			    <span class="icon-bar"></span>
+			    <span class="icon-bar"></span>
+			  </button>
+			  <a class="navbar-brand">Cinema Cafe</a>
+                
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+			  <ul class="nav navbar-nav navbar-right">
+			    <li><a href="~/customerhome">HOME</a></li>
+			   <li><a href="~/EditProfile">EDITPROFILE</a></li>
+			    <li><a href="~/moviebooking">MOVIE BOOKING</a></li>
+			    
+			    
+			    <li><a href="#about">CANCELBOOKING</a></li>
+                <li><a href="~/logout">LOGOUT</a></li>
+                
+                  
+			  </ul>
+			</div>
+		  </div>
+		</nav>
+	</div>
+<div id="banner" class="section-padding">
+		<div class="container">
+            <div class="row">
+                <div class="jumbotron">
+<h2> Choose seats by clicking the corresponding seat in the layout below:</h2>
+    <div id="holder"> 
+        <ul  id="place">
+        </ul>    
+    </div>
+    <div style="float:left;"> 
+    
+    </div>
+        <div style="clear:both;width:100%">
+         
+            <input type="button"  id="conf" value="confirm" />
+
+           
+           <input type="hidden"  name="count" id="count" value="@ViewBag.arraylength" />
+
+
+            @{int i = 1;}
+             
+              
+              
+            @foreach (int item in ViewBag.seats)
+            {
+                @Html.Hidden("t" + i, @item)
+                i++;
+                
+            } 
+            
+            
+             
+            
+            <form method="post" onsubmit="">
+          <label style="color:white">seat booked</label>      
+        <input type="text"  id="tbb" name="tbb" class="form-control text-field-box" readonly="readonly"/> 
+                <br /> 
+                <label style="color:white"> Total seats booked</label> 
+                <input type="text"  id="tbb1" name="tbb1" class="form-control text-field-box" readonly="readonly"/>  
+                <br />
+                <label style="color:white">Amount</label> 
+                <input type="text" id="amm" name="amm" class="form-control text-field-box" readonly="readonly"/>
+                <input type="submit"  value="Book" class="button-medium" />
+            </form>
+                
+           </div>
+        </div>
+	  </div>
+    </div>
+  </div>
+
+            <div id="service" class="section-padding">
+		<div class="container">
+			<div class="row">
+				<div class="page-title text-center">
+					<h1>Our Service</h1>
+					<p>Movie theater chain, offering state-of-the-art sound & projection technology. </p>
+					<hr class="pg-titl-bdr-btm"></hr>
+				</div>
+				<div class="col-md-4">
+					<div class="service-box">
+						<div class="service-icon"><i class="fa fa-picture-o"></i></div>
+						<div class="service-text">
+							<h3>Design</h3>
+							<p> A great variety of films are shown , ranging from animated films for children, blockbusters for general audiences and documentaries for patrons who are interested in non-fiction topics.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="service-box">
+						<div class="service-icon"><i class="fa fa fa-code"></i></div>
+						<div class="service-text">
+							<h3>combo offer</h3>
+							<p> for every first booking food combo is free</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="service-box">
+						<div class="service-icon"><i class="fa fa-diamond"></i></div>
+						<div class="service-text">
+							<h3>hi tech theatre</h3>
+							<p> have 5D facilities,sound woofers and hi definition projection</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+            </div>
+	</div>
+	<!--SERVICE END-->
+
+	<!--PORTFOLIO START-->
+	<div id="portfolio" class="section-padding">
+		<div class="container">
+			<div class="row">
+				<div class="page-title text-center">
+					<h1>Our Previous Works</h1>
+					<p>Showing all New movies <br>grab your seat </p>
+					<hr class="pg-titl-bdr-btm"></hr >
+				</div>
+				<div class="port-sec">
+					
+					<div id="Container">
+								<div class="filimg mix category-1 category-3 col-md-4 col-sm-4 col-xs-12" data-myorder="2">
+									<img src="~/img/theatre1.jpg" class="img-responsive"> 
+								</div>
+								<div class="filimg mix category-2 col-md-4 col-sm-4 col-xs-12" data-myorder="4">
+									<img src="~/img/theatre2.jpg" class="img-responsive">
+								</div>
+								<div class="filimg mix category-1 col-md-4 col-sm-4 col-xs-12" data-myorder="1">
+									<img src="~/img/theatre3.jpg" class="img-responsive">								</div>
+								<div class="filimg mix category-2 category-3 col-md-4 col-sm-4 col-xs-12" data-myorder="8">
+									<img src="~/img/theatre4.jpg" class="img-responsive">								</div>
+								<div class="filimg mix category-2 col-md-4 col-sm-4 col-xs-12" data-myorder="8">
+									<img src="~/img/theatre5.jpg" class="img-responsive">
+								</div>
+								<div class="filimg mix category-2 category-3 col-md-4 col-sm-4 col-xs-12" data-myorder="8">
+									<img src="~/img/theatre6.jpg" class="img-responsive">
+								</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--PORTFOLIO END-->
+
+	<!--TEAM START-->
+	<div id="about" class="section-padding">
+		<div class="container">
+			<div class="row">
+				<div class="page-title text-center">
+					<h1>Meet Our Team</h1>
+					<p>Ravi Teja <br> Surya <br>soumya<br>Aleena<br>Marilla<br>contact:0454-9865321<br>email:cinemacafe@gmail.com</p>
+					<hr class="pg-titl-bdr-btm"></hr>
+				</div>
+				<div class="autoplay">
+					<div class="col-md-6">
+						<div class="team-info">
+							<div class="img-sec">
+								<img src="~/img/prabas.jpg" class="img-responsive">
+							</div>
+							<div class="fig-caption">
+								<h3>Prabas</h3>
+								<p class="marb-20">sponsor</p>
+								
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="team-info">
+							<div class="img-sec">
+								<img src="~/img/anushka.jpg" class="img-responsive">
+							</div>
+							<div class="fig-caption">
+								<h3>Anushka</h3>
+								<p class="marb-20">associate sponsor</p>
+								
+							</div>
+						</div>
+					</div>
+					
+					</div>
+					
+						</div>
+					@*<lable id="seat">@ViewBag.seats</lable>*@
+	</div>
+	<!--TEAM END-->
+    
+	<!--CTA2 START-->
+	<div class="cta2">
+		<div class="container">
+			<div class="row white text-center">
+				<h3 class="wd75 fnt-24">Every great film should seem new every time you see it - Robert Egert</h3>
+				<p class="cta-sub-title"></p>
+				
+			</div>
+		</div>
+	</div>
+	<!--CTA2 END-->
+
+	<!--CONTACT START-->
+	
+	<!--CONTACT END-->
+    <!--login START-->
+	<div id="login" class="section-padding">
+		<div class="container">
+			<div class="row">
+				<div class="page-title text-center">
+					
+					
+					<hr class="pg-titl-bdr-btm"></hr>
+				</div>
+                                
+				
+			</div>
+		</div>
+	</div>
+	<!--CONTACT END-->
+
+	<!--FOOTER START-->
+	<footer class="footer section-padding">
+		<div class="container">
+			<div class="row">
+				<div style="visibility: visible; animation-name: zoomIn;" class="col-sm-12 text-center wow zoomIn">
+					
+																				
+				</div><!--- END COL -->
+			</div><!--- END ROW -->
+		</div><!--- END CONTAINER -->
+	</footer>
+	<!--FOOTER END-->
+	<div class="footer-bottom">
+		<div class="container">
+			<div style="visibility: visible; animation-name: zoomIn;" class="col-md-12 text-center wow zoomIn">
+				<div class="footer_copyright">
+					<p> © Copyright, All Rights Reserved.</p>					
+					<div class="credits">
+                        <!-- 
+                            All the links in the footer should remain intact. 
+                            You can delete the links only if you purchased the pro version.
+                            Licensing information: https://bootstrapmade.com/license/
+                            Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Tempo
+                        -->
+                        
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+  	<script src="js/jquery.min.js"></script>
+  	<script src="js/jquery.easing.min.js"></script>
+  	<script src="js/bootstrap.min.js"></script>
+  	<script src="js/jquery.mixitup.js" type="text/javascript"></script>
+	<script type="text/javascript" src="js/slick.min.js"></script>
+	<script type="text/javascript" src="js/custom.js"></script>
+    <script src="contactform/contactform.js"></script>
+    
+</body>
+@*<script>
+   
+
+    </script>*@
+    
+    </html>

@@ -1,0 +1,262 @@
+﻿@if ((Session["suserid"] != null))
+{
+    if (Session["suserid"].ToString() != "admin@admin.com")
+    {
+        Response.Redirect("/home/customerhome");
+
+    }
+}
+else if (Session["suserid"] == null)
+{
+    Response.Redirect("/home/Index");
+}
+
+
+
+ <!DOCTYPE html>
+<html lang="en" class=" js no-touch">
+<head>
+  <title>Admin home</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="~/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="~/css/font-awesome.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,600|Raleway:600,300|Josefin+Slab:400,700,600italic,600,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="~/css/slick-team-slider.css"/>
+  <link rel="stylesheet" type="text/css" href="~/css/style.css">
+  <!-- =======================================================
+        Theme Name: Tempo
+        Theme URL: https://bootstrapmade.com/tempo-free-onepage-bootstrap-theme/
+        Author: BootstrapMade.com
+        Author URL: https://bootstrapmade.com
+    ======================================================= -->
+</head>
+<body>
+	<!--HEADER START-->
+	<div class="main-navigation navbar-fixed-top">
+		<nav class="navbar navbar-default">
+			<div class="container">
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+			    <span class="icon-bar"></span>
+			    <span class="icon-bar"></span>
+			    <span class="icon-bar"></span>
+			  </button>
+			  <a class="navbar-brand">Cinema Cafe</a>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+			  <ul class="nav navbar-nav navbar-right">
+			    <li class="active"><a href="#banner">Home</a></li>
+			    <li><a href="~/addmovie">add movie</a></li>
+                  <li><a href="~/updatemovies">update movie</a></li>
+			    <li><a href="~/updateprice">update price</a></li>
+			    
+			    
+                <li><a href="~/logout">logout</a></li>
+                  
+			  </ul>
+			</div>
+		  </div>
+		</nav>
+	</div>
+	<!--HEADER END-->
+
+	<!--BANNER START-->
+	<div id="banner" class="section-padding">
+		<div class="container">
+			<div class="row">
+				<div class="jumbotron">
+				  <h1 class="small">Welcome To <span class="bold">Cinema Cafe</span></h1>
+				  <p class="big">Watch your favourite movies</p>
+				  <a href="#about" class="btn btn-banner">show contact<i class="fa fa-send"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--BANNER END-->
+
+	<!--CTA1 START-->
+	<div class="cta-1">
+		<div class="container">
+			<div class="row text-center white">
+				<h1 class="cta-title">Watch Movies!!</h1>
+				<p class="cta-sub-title">Book tickets from your home</p>
+			</div>
+		</div>
+	</div>
+	<!--CTA1 END-->
+
+	<!--SERVICE START-->
+	<div id="service" class="section-padding">
+		<div class="container">
+			<div class="row">
+				<div class="page-title text-center">
+					<h1>Our Service</h1>
+					<p>Movie theater chain, offering state-of-the-art sound & projection technology. </p>
+					<hr class="pg-titl-bdr-btm"></hr>
+				</div>
+				<div class="col-md-4">
+					<div class="service-box">
+						<div class="service-icon"><i class="fa fa-picture-o"></i></div>
+						<div class="service-text">
+							<h3>Design</h3>
+							<p> A great variety of films are shown , ranging from animated films for children, blockbusters for general audiences and documentaries for patrons who are interested in non-fiction topics.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="service-box">
+						<div class="service-icon"><i class="fa fa fa-code"></i></div>
+						<div class="service-text">
+							<h3>combo offer</h3>
+							<p> for every first booking food combo is free</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="service-box">
+						<div class="service-icon"><i class="fa fa-diamond"></i></div>
+						<div class="service-text">
+							<h3>hi tech theatre</h3>
+							<p> have 5D facilities,sound woofers and hi definition projection</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--SERVICE END-->
+
+	<!--PORTFOLIO START-->
+	<div id="portfolio" class="section-padding">
+		<div class="container">
+			<div class="row">
+				<div class="page-title text-center">
+					<h1>Our Previous Works</h1>
+					<p>Showing all New movies <br>grab your seat </p>
+					<hr class="pg-titl-bdr-btm"><hr />
+				</div>
+				
+				</div>
+			</div>
+		</div>
+	
+	<!--PORTFOLIO END-->
+
+	<!--TEAM START-->
+	<div id="about" class="section-padding">
+		<div class="container">
+			<div class="row">
+				<div class="page-title text-center">
+					<h1>Meet Our Team</h1>
+					<p>Ravi Teja <br> Surya <br>soumya<br>Aleena<br>Marilla<br>contact:0454-9865321<br>email:cinemacafe@gmail.com</p>
+					<hr class="pg-titl-bdr-btm"></hr>
+				</div>
+				<div class="autoplay">
+					<div class="col-md-6">
+						<div class="team-info">
+							<div class="img-sec">
+								<img src="~/img/prabas.jpg" class="img-responsive">
+							</div>
+							<div class="fig-caption">
+								<h3>Prabhas</h3>
+								<p class="marb-20">sponsor</p>
+								
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="team-info">
+							<div class="img-sec">
+								<img src="~/img/anushka.jpg" class="img-responsive">
+							</div>
+							<div class="fig-caption">
+								<h3>Anushka</h3>
+								<p class="marb-20">associate sponsor</p>
+								
+							</div>
+						</div>
+					</div>
+					
+					</div>
+					
+						</div>
+					
+		</div>
+	</div>
+	<!--TEAM END-->
+    
+	<!--CTA2 START-->
+	<div class="cta2">
+		<div class="container">
+			<div class="row white text-center">
+				<h3 class="wd75 fnt-24">Every great film should seem new every time you see it - Robert Egert</h3>
+				<p class="cta-sub-title"></p>
+				<a href="#" class="btn btn-default">go up!!!</a>
+			</div>
+		</div>
+	</div>
+	<!--CTA2 END-->
+
+	<!--CONTACT START-->
+	
+	<!--CONTACT END-->
+    <!--login START-->
+	<div id="login" class="section-padding">
+		<div class="container">
+			<div class="row">
+				<div class="page-title text-center">
+					
+					
+					<hr class="pg-titl-bdr-btm"></hr>
+				</div>
+                                
+				
+			</div>
+		</div>
+	</div>
+	<!--CONTACT END-->
+
+	<!--FOOTER START-->
+	<footer class="footer section-padding">
+		<div class="container">
+			<div class="row">
+				<div style="visibility: visible; animation-name: zoomIn;" class="col-sm-12 text-center wow zoomIn">
+					<h3>Follow us on</h3>
+					<div class="footer_social">
+						
+					</div>																
+				</div><!--- END COL -->
+			</div><!--- END ROW -->
+		</div><!--- END CONTAINER -->
+	</footer>
+	<!--FOOTER END-->
+	<div class="footer-bottom">
+		<div class="container">
+			<div style="visibility: visible; animation-name: zoomIn;" class="col-md-12 text-center wow zoomIn">
+				<div class="footer_copyright">
+					<p> © Copyright, All Rights Reserved.</p>					
+					<div class="credits">
+                        <!-- 
+                            All the links in the footer should remain intact. 
+                            You can delete the links only if you purchased the pro version.
+                            Licensing information: https://bootstrapmade.com/license/
+                            Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Tempo
+                        -->
+                        
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+  	<script src="js/jquery.min.js"></script>
+  	<script src="js/jquery.easing.min.js"></script>
+  	<script src="js/bootstrap.min.js"></script>
+  	<script src="js/jquery.mixitup.js" type="text/javascript"></script>
+	<script type="text/javascript" src="js/slick.min.js"></script>
+	<script type="text/javascript" src="js/custom.js"></script>
+    <script src="contactform/contactform.js"></script>
+    
+</body>
+</html>
+

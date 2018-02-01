@@ -1,0 +1,106 @@
+
+
+
+@registration
+Feature: Registration page
+Background: 
+Given: User is on Registration Page
+
+@cancel
+Scenario: clicking on the cancel link
+Given CANCEL is displayed on the Registration page
+When User click CANCEL
+Then USER should redirect to the Cinema Cafe page
+	
+@validregistration
+Scenario: valid registration
+When User enter valid User ID
+And valid Name
+And valid Password
+And valid Answer
+And click Register
+Then User should redirect to Cinema Cafe Page
+
+@blankuserid
+Scenario: blank userid
+When User enter valid Name
+And valid Password
+And valid Answer
+And click Register
+Then It should Display User Id is blank. Please provide a User Id
+
+@blankname
+Scenario: blank name
+When User enter valid User ID
+And valid Password
+And valid Answer
+And click Register
+Then It should display Name is blank. Please provide a Name.
+
+@blankpassword
+Scenario: blank password
+When User enter valid User ID
+And valid Name
+And valid Answer
+And click Register
+Then It should display Password is blank Please provide a Password.
+
+@blankanswer
+Scenario: blank answer
+When User enter valid User ID
+And valid Name
+And valid Password
+And click Register
+Then It should display Answer is blank. Please provide an Answer.
+
+@invaliduserid
+Scenario: Invalid User ID
+When user enters invalid User ID
+And valid Name
+And valid Password
+And valid Answer
+And click Register
+Then It should display User Id should be an email id (or) user already exists
+
+@invalidName
+Scenario: Inavalid Name
+When user enter valid User ID
+And Inavalid Nmae
+And valid Password
+And valid Answer
+And click Register
+Then It should display Name is invalid Please provide a valid name.
+
+@invalidpassword
+Scenario: Invalid Password
+When User enter valid User ID
+And valid Name
+And Invalid Password
+And valid Answer
+And click Register
+Then It should display Password is Invalid Please provide a valid password 
+
+@invalidanswer
+Scenario: Invalid Answer
+When User enter valid User ID
+And valid Name
+And valid Password
+And Invalid answer
+And click Register
+Then It should display Answer is invalid please enter in the range of 5-100 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

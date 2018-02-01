@@ -1,0 +1,16 @@
+@nooflinks
+Scenario: Checking no. of links is equal to 1 
+
+When User counts no. of links
+Then It should not be equal to 1 
+
+@nooftextboxes
+Scenario: Checking no. of links is equal to 5
+When User counts no. of text boxes
+Then It should not be equal to 5
+
+@noofbuttons
+Scenario: Checking no. of buttons is equal to 1
+
+When User counts no. of buttons
+Then It should not be equal to 1

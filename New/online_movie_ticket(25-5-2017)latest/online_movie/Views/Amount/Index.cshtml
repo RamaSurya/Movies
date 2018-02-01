@@ -1,0 +1,24 @@
+﻿ <html>
+     <body>
+
+         @foreach (string strArray in ViewBag.seats) {
+    <li>
+        @strArray
+    </li>
+}
+     <form method="post" class="">
+        
+                <br /> 
+         
+                   Total Amount
+                <input type="text"  id="tbb1" name="tbb1"  value="@ViewBag.amt" readonly="readonly"/>  
+                   Total Seats 
+                <input type="text"  id="tbb2" name="tbb2"  value="@ViewBag.seat" readonly="readonly"/>  
+                <br />
+                
+         <input type="submit" value="pay" />
+
+            </form>
+         </body>
+              </html>  
+

@@ -1,0 +1,199 @@
+ public int CourseAdd(Entitycls add)
+        {
+            string course = add.course;
+            string file = add.file;
+          if(course=="" || file=="")
+          {
+              return 7;
+          }
+            string coursename = "";
+            string extention = "";
+            int len = file.Length - 5;
+            for (int j = len + 1; j < file.Length; j++)
+            {
+                extention += file[j];
+
+            }
+
+            for (int j = 0; j < len; j++)
+            {
+                coursename += file[j];
+            }
+            if(extention !="xlsx")
+            {
+                return 6;
+            }
+            int i;
+            SqlConnection con = new SqlConnection(connection);
+            con.Open();
+
+            SqlCommand cmd1 = new SqlCommand(com.get_Cname, con);
+            SqlParameter p1 = new SqlParameter("@one", course);
+            cmd1.Parameters.Add(p1);
+            SqlDataReader dr = cmd1.ExecuteReader();
+            if (dr.HasRows)
+            {
+                con.Close();
+                return 0;
+                //ViewBag.a = "already there is course with same name";
+            }
+            else
+            {
+                dr.Close();
+                int f = 0;
+                SqlCommand cmd3 = new SqlCommand(com.get_rowcount, con);
+                SqlDataReader dr3 = cmd3.ExecuteReader();
+                while (dr3.Read())
+                {
+                    f = Convert.ToInt16(dr3[0]);
+                }
+                dr3.Close();
+                if (course == coursename)
+                {
+                    SqlCommand cmd = new SqlCommand(com.insert_cname, con);
+                    f = f + 1;
+                    SqlParameter p = new SqlParameter("@rowcount", f);
+                    cmd.Parameters.Add(p);
+                    SqlParameter p2 = new SqlParameter("@name", course);
+                    cmd.Parameters.Add(p2);
+
+                    i = cmd.ExecuteNonQuery();
+
+                    con.Close();
+                }
+                else
+                {
+                    return 1;
+                }
+               
+
+              
+                if (coursename != course)
+                {
+                    return 2;
+                  
+                   
+                }
+                else
+                {
+                    int c1 = 0;
+                    con.Open();
+                    SqlCommand cmd2 = new SqlCommand(com.get_rowcount, con);
+                    SqlDataReader dr2 = cmd2.ExecuteReader();
+                    while (dr2.Read())
+                    {
+                        c1 = Convert.ToInt16(dr2[0]);
+
+                    }
+                    con.Close();
+
+
+                    FileStream fs = new FileStream("C:\\hi\\" + file, FileMode.Open, FileAccess.Read);
+                    IExcelDataReader reader = ExcelReaderFactory.CreateOpenXmlReader(fs);
+
+                    DataSet result = reader.AsDataSet();
+                    DataClasses1DataContext conn = new DataClasses1DataContext();
+                    foreach (DataTable table in result.Tables)
+                    {
+                        table.Rows.RemoveAt(0);
+                        foreach (DataRow dr1 in table.Rows)
+                        {
+
+                            try
+                            {
+                                QuestionsTable insert = new QuestionsTable()
+                                {
+                                    CourseId = c1,
+                                    QuestionNo = Convert.ToInt32(dr1[0]),
+                                    Question = Convert.ToString(dr1[1]),
+                                    Option1 = Convert.ToString(dr1[2]),
+                                    Option2 = Convert.ToString(dr1[3]),
+                                    Option3 = Convert.ToString(dr1[4]),
+                                    Option4 = Convert.ToString(dr1[5]),
+                                    CorrectOption = Convert.ToInt32(dr1[6]),
+                                    category = Convert.ToString(dr1[7])
+
+
+                                };
+
+                                conn.QuestionsTables.InsertOnSubmit(insert);
+                            }
+                            catch (Exception )
+                            {
+                                return 3;
+                              
+                            }
+                            return 4;
+                        }
+                    }
+                    conn.SubmitChanges();
+                    reader.Close();
+                    fs.Close();
+
+                    return 5;
+                }
+            }
+          
+       
+
+****************************************************************************************
+create database Projectdb
+create table feedbackdb(
+RespondentID int,
+CollectorID int,
+StartDate DateTime,
+EndDate DateTime,
+IpAddress varchar(70),
+EmailAddress varchar(30),
+FirstName varchar(50),
+LastName varchar(50),
+Custom1 varchar(60),
+Trainer varchar(50),
+TheVenueorFacilitywasconducivetoyourlearning varchar(100),
+Howconfidentdoyoufeelaboutapplyingtheskillsandknowledgegainedthroughthistraininginyourroleorworksituation varchar(100),
+Trainingincludedanappropriatemixofactivitiesexercisesandinteractions varchar(100),
+Contentflowwaslogicalandsimple varchar(100),
+Contentwasorganized varchar(100),
+Involvedsufficienttimeoneachtopic varchar(100),
+Ifeltencouragedtoparticipatethroughthesession varchar(100),
+Trainerdisplayedexpertiseonthesubjectmatter varchar(100),
+Mytrainerisaneffectivelistener varchar(100),
+Trainertookkeeninterestinmylearning varchar(100),
+Trainermanagedtrainingtimeeffectively varchar(100),
+Iwasallowedopportunitiestoaskquestionsairconcerns varchar(100),
+WhatwerethemostusefulpartsofthecourseandwhyOpenEndedResponse varchar(100),
+WhatweretheleastusefulpartsofthecourseandwhyOpenEndedResponse varchar(100),
+WhatcanwedotomakethistrainingmoreusefultoyouandrelevanttoyourjobOpenEndedResponse varchar(100))
+
+
+select * from feedbackdb
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

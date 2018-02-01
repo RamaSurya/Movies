@@ -1,0 +1,152 @@
+ [TestClass]
+    public class LayersTest
+    {
+        CommonClass com = new CommonClass();              
+        LoginClass c = new LoginClass();
+        Controllers.HomeController hc = new Controllers.HomeController();
+        #region Additional test attributes
+       
+        #endregion
+
+        [TestMethod]
+        public void AdminLogin()                   //admin login failed 
+        {                              
+            LoginClass lg = new LoginClass();           //validation error
+            lg.userid = "admin@admin";
+            lg.password = "admin1";
+            Datacls da = new Datacls();
+            string expected = "Successfully Logged In as Admin";
+
+            string actual = da.validateuser(lg);
+            Assert.AreEqual(expected, actual);
+       
+        }
+
+        [TestMethod]
+        public void AdminLoginTest()                   //admin login
+        {                           
+            LoginClass lg = new LoginClass();
+            lg.userid = "venu@venu.con";
+            lg.password = "admin1234";
+            Datacls da = new Datacls();
+            string expected = "Login is unsuccessfull";
+            string actual = da.validateuser(lg);
+            Assert.AreNotEqual(expected, actual);
+           
+        }
+
+        [TestMethod]
+        public void AdminLoginValidated()                   //admin login
+        {
+            LoginClass lg = new LoginClass();
+            lg.userid = "admin@admin.com";
+            lg.password = "admin123";
+            Datacls da = new Datacls();
+
+            string expected = "Successfully Logged In as Admin";
+            string actual = da.validateuser(lg);
+            Assert.AreEqual(expected, actual);
+           
+        }
+
+        [TestMethod]
+        public void LoginValidationCheck()                   //admin invalid login
+        {
+            
+            LoginClass lg = new LoginClass();
+            lg.userid = "abcd";
+            lg.password = "dcba";
+            Datacls da = new Datacls();
+
+            string expected = "Successfully Logged In as Admin";
+            string actual = da.validateuser(lg);
+            Assert.AreEqual(expected, actual);
+            
+        }
+
+        [TestMethod]
+        public void UserRegistration()               //user register
+        {           
+          
+            RegistrationClass r = new RegistrationClass();
+            r.userid = "umamaheshwari@gmail.com";
+            r.name = "umamaheswari";
+            r.mobile = "9989199984";
+            r.password = "uma12345";
+            r.answer = "mmahiqwerty";
+            Datacls c = new Datacls();
+            string expected = "Registered Successfully";
+            string actual = c.registeruser(r);
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        public void ForgotPassword()               //forgot password
+        {
+            
+           
+            ForgotPasswordClass fg = new ForgotPasswordClass();
+            fg.userid = "ab@ab.com";
+            fg.answer = "asdf";
+            Datacls c = new Datacls();
+            string expected = "Successfully Logged in";
+            string actual = c.forgetpass(fg);
+            Assert.AreEqual(expected, actual);
+           
+        }
+
+        [TestMethod]
+        public void UpdatePrice()               //update price
+        {           
+            UpdatePriceClass u = new UpdatePriceClass();
+            u.type = "Gold";
+            u.price = 555;
+            Datacls c1 = new Datacls();
+            string expected = "price updated";
+            string actual = c1.seatprice(u);
+            Assert.AreEqual(expected, actual);
+            
+        }
+
+        [TestMethod]
+        public void AddMovie()           //add movie
+        {
+            
+            AddMovieClass am = new AddMovieClass();
+            am.showid = "234";
+            am.moviename = "varsham";
+            am.date = Convert.ToDateTime("2017-12-01");
+            am.starttime = DateTime.Parse(("03:30 PM").ToString());
+            am.endtime = DateTime.Parse(("06:00 PM").ToString());
+            Datacls da = new Datacls();
+            string expected = "one movie added";
+            string actual = da.AddMovie(am);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UserLogin()           //user login for valid
+        {
+
+            LoginClass cl = new LoginClass();
+            cl.userid = "ab@ab.com";
+            cl.password = "ab@ab123";
+
+            Datacls d = new Datacls();
+            string expected = "Successfully Logged In as Customer";
+            string actual = d.validateuser(cl);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UserLoginProcedureCheck()           //user login for invalid
+        {
+          
+            LoginClass cl = new LoginClass();
+            cl.userid = "mahi@gmail.com";
+            cl.password = "uma@1234";
+            Datacls d = new Datacls();
+            string expected = "Login is unsuccessfull";
+            string actual = d.validateuser(cl);
+            Assert.AreEqual(expected, actual);
+            
+        }

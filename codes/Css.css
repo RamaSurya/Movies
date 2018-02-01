@@ -1,0 +1,22 @@
+* {
+    margin: auto;
+    padding: 0;
+}
+
+.seat {
+    float:initial;
+    display: block;
+    margin: 10px;
+    background: #4CAF50;
+    width: 60px;
+    height: 50px;
+}
+
+.seat-select {
+    display:none;
+}
+
+.seat-select:checked+.seat {
+    background: #F44336;
+}
+

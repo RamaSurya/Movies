@@ -1,0 +1,174 @@
+@addmovie
+Feature: checking the functionality of Add Movies page
+Background: user should be on Add Movies page
+
+@title
+Scenario: checking the title
+When user is on Add Movies page
+Then the title should be Add Movies
+
+@Home
+Scenario: checking the functionality of Home link
+Given Home link is displayed on Add Movies page
+When admin clicks on Home link
+Then admin will Redirect to the Admin Home page
+
+@AddMovie
+Scenario: checking the functionality of Add Movie link
+Given Add movie link is displayed on Add Movies page
+When admin clicks on Add Movie link
+Then admin will Redirect to same (Add Movie) Page
+
+@UpdateMovie
+Scenario: checking the fuctionality of Update Movie link
+Given Update Movie link is displayed on Add Movies page
+When admin clicks on update Movie link
+Then admin will Redirect to the Update movie Page
+
+@UpdatePrice
+Scenario: checking the functionality of Update Price link
+Given Update Price link is displayed on Add Movies page
+When admin clicks on Update Price link
+Then admin will Redirect to the Update Price Page
+
+@LOGOUT
+Scenario: checking the functionality of LOGOUT link
+Given LOGOUT link is displayed on Add Movies page
+When admin clicks on LOGOUT link
+Then admin will Redirect to the Cinema Cafe Page
+
+@validadd
+Scenario: checking the functionality of Add Movies page with valid data
+When admin enters valid Show Id
+And admin enters valid Movie Name
+And admin enters valid Date
+And admin enters valid Start Time 
+And admin enters vali End Time
+And click on Add button
+Then admin gets message-Added successfully
+
+@ShowIDblank
+Scenario: checking the functionality of Add Movies page with blank Show Id
+When admin enters valid Movie Name
+And admin enters valid Date
+And admin enters valid Start Time 
+And admin enters vali End Time
+And click on Add button
+Then admin gets message-Show Id is blank.Please provide an Id for the show. 
+
+@MovieNameblank
+Scenario: checking the functionality of Add Movies page with bank Movie Name
+When admin enters valid Show Id
+And admin enters valid Date
+And admin enters valid Start Time 
+And admin enters vali End Time
+And click on Add button
+Then admin gets message-Movie Name is blank.Please provide a name for the movie.
+
+@blankStartTime
+Scenario: checking the functionality of Add Movies page with blank Start Time
+When admin enters valid Show Id 
+And  admin enters valid Movie Name
+And admin enters valid Date
+And admin enters vali End Time
+And click on Add button
+Then admin gets message-Start Time is blank.Please provide the starting time of movie.
+
+@blankEndTime
+Scenario: checking the functionality of Add Movies with blank End Time
+When admin enters valid Show Id
+And admin enters valid Movie Name
+And admin enters valid Date
+And admin enters Start Time
+And click on Add button
+Then admin gets message-End Time is blank.Please provide the ending time of movie.
+
+@blankDate
+Scenario: checking the functionality of Add Movies with blank Date
+When admin enters valid Show Id
+And admin enters valid Movie Name
+And admin enters valid Start Time 
+And admin enters vali End Time
+And click on Add button
+Then admin gets message-Date is blank.Please provide the date of the show of the movie.
+
+@ShowId<1
+Scenario: checking the functionality of Add Movies with Show Id less than 1 character
+When admin enters Show Id with less than 1 character
+And admin enters valid Movie Name
+And admin enters valid Date
+And admin enters valid Start Time 
+And admin enters vali End Time
+And click on Add button
+Then admin gets message-Show Id is less than 1 character
+
+@ShowId>5
+Scenario: checking the functionality of Add Movies with Show Id greater than 5 characters
+When admin enters Show Id with greater than 5 character
+And admin enters valid Movie Name
+And admin enters valid Date
+And admin enters valid Start Time 
+And admin enters vali End Time
+And click on Add button
+Then admin gets message-Show Id is greater than 5 character
+
+@ShowIdspecial
+Scenario: checking the functionality of Add Movies with Show Id having special characters
+When admin enters Show Id with special character
+And admin enters valid Movie Name
+And admin enters valid Date
+And admin enters valid Start Time 
+And admin enters vali End Time
+And click on Add button
+Then admin gets message-Show Id is having special characters
+
+@Moviename<3
+Scenario: checking the functionality of Add Movies with Movie Name less than 3 characters
+When admin enters valid Show Id
+And admin enters Movie Name with less than 3 characters
+And admin enters valid Date
+And admin enters valid Start Time 
+And admin enters vali End Time
+And click on Add button
+Then admin gets message-Movie Name is less than 3 characters
+
+@MovieName>50
+Scenario: checking the functionality of Add Movies with Movie Name greater than 50 characters
+When admin enters valid Show Id
+And admin enters Movie Name with greater than 50 characters
+And admin enters valid Date
+And admin enters valid Start Time 
+And admin enters vali End Time
+And click on Add button
+Then admin gets message-Movie Name is greater than 50 characters
+
+@MovieNamedigit
+Scenario: checking the functionality of Add Movies with Movie Name having numbers
+When admin enters valid Show Id
+And admin enters Movie Name having numbers
+And admin enters valid Date
+And admin enters valid Start Time 
+And admin enters vali End Time
+And click on Add button
+Then admin gets message-Movie Name is having numbers
+
+@MovieNamespecial
+Scenario: checking the functionality of Add Movies with Movie Name having special characters
+When admin enters valid Show Id
+And admin enters Movie Name having special characters
+And admin enters valid Date
+And admin enters valid Start Time 
+And admin enters vali End Time
+And click on Add button
+Then admin gets message-Movie Name is having special characters
+
+
+
+
+
+
+
+
+
+
+

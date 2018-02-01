@@ -1,0 +1,15 @@
+C:\online_ticket\layernewproject\online_movie\common\bin\Debug\common.dll
+C:\online_ticket\layernewproject\online_movie\common\bin\Debug\common.pdb
+C:\online_ticket\layernewproject\online_movie\common\obj\Debug\common.dll
+C:\online_ticket\layernewproject\online_movie\common\obj\Debug\common.pdb
+C:\online_ticket\layernewproject\online_movie\common\obj\Debug\common.csprojResolveAssemblyReference.cache
+C:\online_ticket\online_movie_new\common\bin\Debug\common.dll
+C:\online_ticket\online_movie_new\common\bin\Debug\common.pdb
+C:\online_ticket\online_movie_new\common\obj\Debug\common.csprojResolveAssemblyReference.cache
+C:\online_ticket\online_movie_new\common\obj\Debug\common.dll
+C:\online_ticket\online_movie_new\common\obj\Debug\common.pdb
+C:\online_ticket\online_movie_ticket(28-5-2017)latest\common\bin\Debug\common.dll
+C:\online_ticket\online_movie_ticket(28-5-2017)latest\common\bin\Debug\common.pdb
+C:\online_ticket\online_movie_ticket(28-5-2017)latest\common\obj\Debug\common.csprojResolveAssemblyReference.cache
+C:\online_ticket\online_movie_ticket(28-5-2017)latest\common\obj\Debug\common.dll
+C:\online_ticket\online_movie_ticket(28-5-2017)latest\common\obj\Debug\common.pdb

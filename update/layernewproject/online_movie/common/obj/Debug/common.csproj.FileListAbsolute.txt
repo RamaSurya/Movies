@@ -1,0 +1,10 @@
+C:\online_ticket\layernewproject\online_movie\common\bin\Debug\common.dll
+C:\online_ticket\layernewproject\online_movie\common\bin\Debug\common.pdb
+C:\online_ticket\layernewproject\online_movie\common\obj\Debug\common.dll
+C:\online_ticket\layernewproject\online_movie\common\obj\Debug\common.pdb
+C:\online_ticket\layernewproject\online_movie\common\obj\Debug\common.csprojResolveAssemblyReference.cache
+\\172.16.124.206\mlab\5_OnlineTickets\update\layernewproject\online_movie\common\bin\Debug\common.dll
+\\172.16.124.206\mlab\5_OnlineTickets\update\layernewproject\online_movie\common\bin\Debug\common.pdb
+\\172.16.124.206\mlab\5_OnlineTickets\update\layernewproject\online_movie\common\obj\Debug\common.csprojResolveAssemblyReference.cache
+\\172.16.124.206\mlab\5_OnlineTickets\update\layernewproject\online_movie\common\obj\Debug\common.dll
+\\172.16.124.206\mlab\5_OnlineTickets\update\layernewproject\online_movie\common\obj\Debug\common.pdb

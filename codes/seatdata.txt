@@ -1,0 +1,24 @@
+CREATE PROCEDURE dbo.SP_SeatDetails_Insert  
+    (
+    @BookingID int,
+    @SeatID int
+    )   
+AS
+    insert into SeatDetails (BookingID,SeatID) values (@BookingID,@SeatID) 
+
+--------------------------------------------------------------------
+
+create table bookingdetails
+	(
+	bookingid int constraint pk primary key,
+	name varchar(12),
+	amount int
+	)
+
+-------------------------------------------------------------------------
+
+create table seatdetails
+	(
+	seatid int,
+	bookingid int
+	)

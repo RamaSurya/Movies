@@ -1,0 +1,49 @@
+function FormValidate() {
+   
+    var name = document.getElementById("name").value;
+    var mobilenumber = document.getElementById("mobilenumber").value;
+    var userid = document.getElementById("userid").value;
+    var password = document.getElementById("password").value;
+    var answer = document.getElementById("answer").value;
+  
+    document.getElementById("ERR_001").style.visibility = "hidden";
+    document.getElementById("ERR_002").style.visibility = "hidden";
+    document.getElementById("ERR_003").style.visibility = "hidden";
+    document.getElementById("ERR_004").style.visibility = "hidden";
+    document.getElementById("ERR_005").style.visibility = "hidden";
+
+
+    if (name == "")
+    {
+        document.getElementById("ERR_001").style.visibility = "visible";
+        return false;
+
+    }
+    if(mobilenumber!=""){
+        if (!(/^[1-9]{1}[1-9]{9}$/).test(mobilenumber)) {
+
+            document.getElementById("ERR_002").style.visibility = "visible";
+            return false;
+        }
+    }
+       if (userid == "") {
+           document.getElementById("ERR_003").style.visibility = "visible";
+            return false;
+        }
+      if (password == "") {
+          document.getElementById("ERR_004").style.visibility = "visible";
+            return false;
+      }
+      if (answer =="") {
+          document.getElementById("ERR_005").style.visibility = "visible";
+          return false;
+
+      }
+    else {
+        return true;
+    }
+}
+======================================================================
+else if(name!=""){
+if(name.length>10|| name.lenthe<5){
+

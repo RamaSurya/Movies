@@ -1,0 +1,243 @@
+using System;
+using System.Text;
+using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using online_movie;
+using System.Web.Mvc;
+using Business_entities;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Data;
+using Data_access_layer;
+using common;
+using Bussiness_layer;
+
+namespace online_movie.Tests
+{
+   
+    [TestClass]
+    public class UnitTest
+    {
+        logincls c = new logincls();
+
+        SqlConnection con = new SqlConnection("server=172.16.170.71;Database=MovieTickets;uid=sa;pwd=Passw0rd@12");
+        Controllers.homeController hc = new Controllers.homeController();
+        
+        
+        public UnitTest()
+        {
+            
+        }
+
+        private TestContext testContextInstance;
+
+        
+        public TestContext TestContext
+        {
+            get
+            {
+                return testContextInstance;
+            }
+            set
+            {
+                testContextInstance = value;
+            }
+        }
+
+        #region Additional test attributes
+       
+        #endregion
+
+        [TestMethod]
+        public void testmethod0()                   //admin login failed 
+        {
+                                
+            logincls lg = new logincls();           //connection is not established
+            lg.userid = "admin@admin";
+            lg.password = "admin1";
+            Datacls da = new Datacls();
+
+            int expected = 0;
+            int actual = da.validateuser(lg);
+            Assert.AreEqual(expected, actual);
+            con.Close();
+        }
+
+        [TestMethod]
+        public void testmethod1()                   //admin login
+        {       
+            con.Open();           
+            logincls lg = new logincls();
+            lg.userid = "venu@venu";
+            lg.password = "admin1";
+            Datacls da = new Datacls();
+           
+            int expected = 2;
+            int actual = da.validateuser(lg);
+            Assert.AreEqual(expected, actual);
+            con.Close();
+        }
+
+        [TestMethod]
+        public void testmethod1()                   //admin login
+        {
+            con.Open();
+            logincls lg = new logincls();
+            lg.userid = "admin@admin";
+            lg.password = "admin1";
+            Datacls da = new Datacls();
+
+            int expected = 2;
+            int actual = da.validateuser(lg);
+            Assert.AreEqual(expected, actual);
+            con.Close();
+        }
+
+        [TestMethod]
+        public void testmethod1a()                   //admin invalid login
+        {
+            con.Open();
+            logincls lg = new logincls();
+            lg.userid = "abcd";
+            lg.password = "dcba";
+            Datacls da = new Datacls();
+
+            int expected = 2;
+            int actual = da.validateuser(lg);
+            Assert.AreNotEqual(expected, actual);
+            con.Close();
+        }
+
+        [TestMethod]
+        public void testmethod2()               //user register
+        {           
+            con.Open();
+            registrationcls r = new registrationcls();
+            r.userid = "uma123@gmail.com";
+            r.name = "uma";
+            r.mobile = "9989199984";
+            r.password = "uma123";
+            r.answer = "mahi";
+            Datacls c = new Datacls();
+            int expected = 1;
+            int actual = c.registeruser(r);
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        public void testmethod3()               //forgot password
+        {
+            
+            con.Open();
+            forgetpasswordcls fg = new forgetpasswordcls();
+            fg.userid = "ab@ab";
+            fg.answer = "axc";
+            Datacls c = new Datacls();
+            int expected = 1;
+            int actual = c.forgetpass(fg);
+            Assert.AreEqual(expected, actual);
+            con.Close();
+
+        }
+
+        [TestMethod]
+        public void testmethod4()               //update price
+        {
+
+            con.Open();
+            updatepricecls u = new updatepricecls();
+            u.type = "platinum";
+            u.price = 555;
+            Datacls c1 = new Datacls();
+            int expected = 1;
+            int actual = c1.seatprice(u);
+            Assert.AreEqual(expected, actual);
+            con.Close();
+
+        }
+
+        [TestMethod]
+        public void testmethod5()           //add movie
+        {
+            con.Open();
+            addmoviecls am = new addmoviecls();
+            am.showid = "123 45";
+            am.moviename = "mirchi";
+            am.date = Convert.ToDateTime("2017-12-01");
+            am.starttime = DateTime.Parse(("03:30 PM").ToString());
+            am.endtime = DateTime.Parse(("06:00 PM").ToString());
+            Datacls da = new Datacls();
+            int expected = 1;
+            int actual = da.movieadd(am);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void testmethod6()           //user login for valid
+        {
+            con.Open();
+            logincls cl = new logincls();
+            cl.userid = "ab@ab";
+            cl.password = "ab@ab";
+
+            Datacls d = new Datacls();
+            int expected = 1;
+            int actual = d.validateuser(cl);
+            Assert.AreEqual(expected, actual);
+            con.Close();
+        }
+
+        [TestMethod]
+        public void testmethod7()           //user login for invalid
+        {
+            con.Open();
+            logincls cl = new logincls();
+            cl.userid = "mahi@gmail.com";
+            cl.password = "uma";
+            Datacls d = new Datacls();
+            int expected = 0;
+            int actual = d.validateuser(cl);
+            Assert.AreEqual(expected, actual);
+            con.Close();
+        }
+        [TestMethod]
+        public void testmethod8()//Home Controller
+        {
+            Controllers.homeController hc = new Controllers.homeController();
+            layercls l = new layercls();
+            var res = hc.Index() as ViewResult;
+            Assert.AreEqual("Cinema Cafe", res.ViewName);
+
+
+        }
+
+        [TestMethod]
+        public void testmethod9()                   //admin login
+        {
+            con.Open();
+            logincls lg = new logincls();
+            lg.userid = "admin@admin";
+            lg.password="admin@admin";
+            Datacls da = new Datacls();
+            layercls l = new layercls();
+            int ab = da.validateuser(lg);
+            var res = hc.Index() as ViewResult;
+            var a = res.Model as logincls;
+            Assert.IsNotNull(res);
+            Assert.AreEqual("AdminHome",a.userid,a.password);
+            con.Close();
+        }
+        [TestMethod]
+        public void testmethod10()
+        {
+            con.Open();
+            logincls lg = new logincls();
+           
+           
+            Datacls da = new Datacls();
+            var res = hc.Index( lg.userid = "admin@admin", lg.password = "admin@admin");
+            Assert.AreEqual("AdminHome",hc.Response);
+            con.Close();
+
+        }
+    }
+}

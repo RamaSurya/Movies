@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "seatarrangment", "seatarrangment\seatarrangment.csproj", "{DB021C6B-5DE7-4B85-8783-7185E8B4295C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "seatarrangment.Tests", "seatarrangment.Tests\seatarrangment.Tests.csproj", "{F99D35D9-21AD-475D-ADC0-95717B233D50}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB021C6B-5DE7-4B85-8783-7185E8B4295C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB021C6B-5DE7-4B85-8783-7185E8B4295C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB021C6B-5DE7-4B85-8783-7185E8B4295C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB021C6B-5DE7-4B85-8783-7185E8B4295C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F99D35D9-21AD-475D-ADC0-95717B233D50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F99D35D9-21AD-475D-ADC0-95717B233D50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F99D35D9-21AD-475D-ADC0-95717B233D50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F99D35D9-21AD-475D-ADC0-95717B233D50}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

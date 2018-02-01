@@ -1,0 +1,6 @@
+cancel=xpath,/html/body/div[1]/nav/div/div[2]/ul/li/a
+name=id,name
+mob=name,mobilenumber
+password=cssSelector,input[type=password]
+answer=name,answer
+update=cssSelector,input[value=Update]

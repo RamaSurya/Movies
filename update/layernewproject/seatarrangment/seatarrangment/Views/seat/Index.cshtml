@@ -1,0 +1,35 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+                     <form id="reservation" method="post" >
+    <section id="seats">
+      <input id="seat1" class="seat-select" type="checkbox" value="seat1" name="seat1" />
+      <label for="seat-1" class="seat"></label>
+      <input id="seat2" class="seat-select" type="checkbox" value="seat2" name="seat2" />
+      <label for="seat-2" class="seat"></label>
+      <input id="seat3" class="seat-select" type="checkbox" value="seat3" name="seat3" />
+      <label for="seat-3" class="seat"></label>
+      <input id="seat4" class="seat-select" type="checkbox" value="seat4" name="seat4" />
+      <label for="seat-4" class="seat"></label>
+         
+        <input type="submit" id="submit" value="confirm" />
+        @if (IsPost)
+        {
+            @ViewBag.a
+        }
+       
+    </section>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+CANCEL=xpath,/html/body/div[1]/nav/div/div[2]/ul/li/a
+uid=name,userid
+ans=name,answer
+sub=cssSelector,input[type=submit]
+forgot=xpath,/html/body/div[8]/div/div/div[2]/form/a[2]
+blankuser=id,ERR_003
+invaliduser=id,ERR_003.1
+blankans=id,ERR_005
+lessans=id,ERR_005.2
+grtans=id,ERR_005.2
+spclans=id,ERR_005.1
+links=tagName,a
+txtbox=cssSelector,input[type=text]
+button=cssSelector,input[type=button]

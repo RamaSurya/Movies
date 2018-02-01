@@ -1,0 +1,120 @@
+﻿<html>
+    <head>
+        <link href="~/css/seatStyle.css" rel="stylesheet" />
+        <script src="~/Scripts/jquery-1.7.1.js"></script>
+        <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    </head>
+
+
+    <body>
+
+<h2> Choose seats by clicking the corresponding seat in the layout below:</h2>
+    <div id="holder"> 
+        <ul  id="place">
+        </ul>    
+    </div>
+    <div style="float:left;"> 
+    
+    </div>
+        <div style="clear:both;width:100%">
+        <input type="button" id="btnShowNew" value="Show Selected Seats" />
+        <input type="button" id="btnShow" value="Show All" />      
+            <input type="button"  id="conf" value="confirm" />
+             
+            
+            <form method="post" onsubmit="">
+        <input type="text"  id="tbb" name="tbb"/> 
+                <br /> 
+                <input type="text"  id="tbb1" name="tbb1" />  
+                <br />
+                <input type="text" id="amm" name="amm"/>
+                <input type="submit"  value="pay" />
+            </form>
+                
+        </div>
+<script>
+    $(function () {
+        var settings = {
+            rows: 5,
+            cols: 15,
+            rowCssPrefix: 'row-',
+            colCssPrefix: 'col-',
+            seatWidth: 35,
+            seatHeight: 35,
+            seatCss: 'seat',
+            selectedSeatCss: 'selectedSeat',
+            selectingSeatCss: 'selectingSeat'
+        };
+
+        var init = function (reservedSeat) {
+            var str = [], seatNo, className;
+            for (i = 0; i < settings.rows; i++) {
+                for (j = 0; j < settings.cols; j++) {
+                    seatNo = (i + j * settings.rows + 1);
+                    className = settings.seatCss + ' ' + settings.rowCssPrefix + i.toString() + ' ' + settings.colCssPrefix + j.toString();
+                    if ($.isArray(reservedSeat) && $.inArray(seatNo, reservedSeat) != -1) {
+                        className += ' ' + settings.selectedSeatCss;
+                    }
+                    str.push('<li class="' + className + '"' +
+                              'style="top:' + (i * settings.seatHeight).toString() + 'px;left:' + (j * settings.seatWidth).toString() + 'px">' +
+                              '<a title="' + seatNo + '">' + seatNo + '</a>' +
+                              '</li>');
+
+                }
+            }
+            $('#place').html(str.join(''));
+        };
+        //case I: Show from starting
+        //init();
+
+        //Case II: If already booked
+        var bookedSeats = [5, 10, 25];
+        init(bookedSeats);
+        $('.' + settings.seatCss).click(function () {
+            if ($(this).hasClass(settings.selectedSeatCss)) {
+                alert('This seat is already reserved');
+            }
+            else {
+                $(this).toggleClass(settings.selectingSeatCss);
+            }
+        });
+
+        $('#btnShow').click(function () {
+            var str = [];
+            $.each($('#place li.' + settings.selectedSeatCss + ' a, #place li.' + settings.selectingSeatCss + ' a'), function (index, value) {
+                str.push($(this).attr('title'));
+            });
+            alert(str.join(','));
+        })
+
+        $('#btnShowNew').click(function () {
+            var str = [], item;
+            $.each($('#place li.' + settings.selectingSeatCss + ' a'), function (index, value) {
+                item = $(this).attr('title');
+                str.push(item);
+            });
+            alert(str.join(','));
+        })
+
+
+
+        $('#conf').click(
+       function () {
+           //var tb1 = $("tbb").val();
+           //$("tbb").val(tb1+","+$(this).text())//$('#msg').html($('input:textbox').val());
+           var str1 = [], item;
+           $.each($('#place li.' + settings.selectingSeatCss + ' a'), function (index, value) {
+               item = $(this).attr('title');
+               str1.push(item)
+               //$("#tbb").val(str1.join(',')+$(this).text);
+               document.getElementById("tbb").value = str1.join(',');
+               document.getElementById("tbb1").value = str1.length;
+               document.getElementById("amm").value = (str1.length) * 50;
+
+           });
+       });
+    });
+
+    </script>
+    </body>
+    </html>

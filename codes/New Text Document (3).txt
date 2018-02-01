@@ -1,0 +1,195 @@
+ public ActionResult forgotpwd()
+        {
+            return View();
+        }
+        public ActionResult forgotpwd(string t1)
+        {
+
+            sda = new SqlCommand("forgotproc @user", con);
+            con.Open();
+            SqlParameter p1 = new SqlParameter("@user", t1);           
+            sda.Parameters.Add(p1);           
+            int result = (int)sda.ExecuteScalar();
+            if (result == 1)
+            {
+                return View("index");
+            }
+            else if (result == 2)
+            {
+                return View("home");
+            }
+            else
+            {
+                con.Close();
+                ViewBag.a = "invalid user";
+                return View();
+            }    
+***************************************************************
+ public ActionResult forgotpwd()
+        {
+            return View();
+        }
+        public ActionResult forgotpwd(string t1)
+        {
+
+            sda = new SqlCommand("forgotproc @user", con);
+            con.Open();
+            SqlParameter p1 = new SqlParameter("@user", t1);           
+            sda.Parameters.Add(p1);           
+            int result = (int)sda.ExecuteScalar();
+            if (result == 1)
+            {
+                return View("index");
+            }
+            else if (result == 2)
+            {
+                return View("home");
+            }
+            else
+            {
+                con.Close();
+                ViewBag.a = "invalid user";
+                return View();
+            }               
+**************************************************************
+ public ActionResult editprofile()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult editprofile(string t1,string t2,string t3,string t4,string t5)
+        {
+            sda=new SqlCommand("editproc @name,@mob,@user,@pawd,@ans",con);
+            con.Open();
+            SqlParameter p1 = new SqlParameter("@name", t1);
+            SqlParameter p2 = new SqlParameter("@mob", t2);
+            SqlParameter p3 = new SqlParameter("@user", t3);
+            SqlParameter p4 = new SqlParameter("@pawd", t4);
+            SqlParameter p5 = new SqlParameter("@ans", t5);
+            sda.Parameters.Add(p1);
+            sda.Parameters.Add(p2);
+            sda.Parameters.Add(p3);
+            sda.Parameters.Add(p4);
+            sda.Parameters.Add(p5);
+            sda.ExecuteNonQuery();
+            con.Close();
+            return View();
+           
+        }
+******************************************************************************
+<form method="post">
+            enter your name<input type="text" name="t1" value=""/><br /><br />
+            enter mobile number <input type="text" name="t2" /><br /><br />
+            enter emailid<input type="email" name="t3" /><br /><br />
+             enter password<input type="password" name="t4" /><br /><br />
+            Your security question <input type="text" name="" value="what is your primary school name"/><br /><br />
+            enter your answer<input type="text" name="t5" /><br /><br />
+            <input type ="submit" />
+
+            </form>  
+*************************************************
+ public ActionResult test()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult test(string a,string b ,string c,string d,string e)
+        {
+           
+            sda = new SqlCommand("addproc @sid,@mname,@sdate,@stime,@etime", con);
+            con.Open();
+            SqlParameter p1 = new SqlParameter("@sid", a);
+            SqlParameter p2 = new SqlParameter("@mname", b);
+            SqlParameter p3 = new SqlParameter("@sdate", c);
+            SqlParameter p4 = new SqlParameter("@stime", d);
+            SqlParameter p5 = new SqlParameter("@etime", e);
+            sda.Parameters.Add(p1);
+            sda.Parameters.Add(p2);
+            sda.Parameters.Add(p3);
+            sda.Parameters.Add(p4);
+            sda.Parameters.Add(p5);
+            sda.ExecuteNonQuery();
+            con.Close();
+            return View();
+            
+           
+        }
+*****************************************************************
+
+<form method="post">
+  enter showid<input type="text" name="a"  value=""/><br /><br />
+       <input type="text" name="b" value="" /><br />
+        <br />
+      <input type="date" name="c" value="" /><br />
+        <br />
+       <input type="text" name="d" value="" /><br />
+       <br />
+       <input type="text" name="e" value=""/><br />
+    
+     <input type="submit" value="update/add" />
+
+         </form>
+
+******************************************************************
+
+@model IEnumerable<MyProjectTickectBooking.Models.showdetails>
+   
+
+
+<h2>show</h2>
+<div>
+  
+   <table border="1">
+    @foreach (var item in Model)
+    {
+        <tr><td>
+        @item.showid
+            </td>
+        <td>
+        
+        @item.moviename
+             </td>
+         <td>
+      
+        @item.date
+              </td>
+       <td>
+        
+        @item.starttime
+              </td>
+         <td>
+        @item.endtime
+            </td></tr>
+    }
+      </table>
+    </div>
+********************************************************************
+
+
+ public ViewResult show()
+        {
+            sda = new SqlCommand("showproc", con);
+            con.Open();
+            SqlDataReader sdr = sda.ExecuteReader();
+            List<showdetails> li = new List<showdetails>();
+            while (sdr.Read())
+            {
+                showdetails sd = new showdetails()
+                {
+                    showid = Convert.ToString(sdr[0]),
+                    moviename = Convert.ToString(sdr[1]),
+                    date = Convert.ToDateTime(sdr[2].ToString()),
+                    starttime = Convert.ToDateTime(sdr[3].ToString()),
+                    endtime = Convert.ToDateTime(sdr[4].ToString())
+                };
+                li.Add(sd);
+                ViewBag.a = sdr[0];
+                ViewBag.b = sdr[1];
+                ViewBag.c = sdr[2];
+                ViewBag.d = sdr[3];
+                ViewBag.e = sdr[4];
+            }
+            con.Close();
+          
+            return View(li);
+        } 

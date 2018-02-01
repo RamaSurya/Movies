@@ -1,0 +1,8 @@
+	
+			public void status(int r, int c, String sht) throws IOException {
+				 if (read(r,c,sht).equals(read(r,(c+1),"GUI"))) {
+				    	write(r, (c+2), "Pass",sht);
+					} else {
+						write(r, (c+2), "Fail",sht);
+					}
+			}

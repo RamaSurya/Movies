@@ -1,0 +1,505 @@
+package com.login;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.List;
+
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+public class EditProfile extends ObjectAccess{
+	
+	
+	public EditProfile() throws IOException {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	static WebDriver driver=new FirefoxDriver();
+	static String url="http://172.16.170.164/cinemacafe1";
+	static String excel="C:/automation/selenium/Cinemacafe/Excel files/Edit Profile.xlsx";
+
+	static File f=new File(excel);
+	 static  FileInputStream f1;
+		static XSSFWorkbook wb;
+		static XSSFSheet sh;
+		public String  read(int r,int c, String sht) throws IOException
+		{
+			
+			  FileInputStream f1=new FileInputStream(f);
+				XSSFWorkbook wb=new XSSFWorkbook(f1);
+				XSSFSheet sh=wb.getSheet(sht);
+				String u="",p="";
+			          try
+						{
+							if(sh.getRow(r).getCell(c).getCellType()==0)
+							{
+								int m=(int) sh.getRow(r).getCell(c).getNumericCellValue();
+								u=String.valueOf(m);
+							}
+							else
+							{
+								u=sh.getRow(r).getCell(c).getStringCellValue();
+							}
+						}
+						catch(Exception e)
+						{
+							if(e.equals("NullPointerException"))
+								u=null;
+						}
+				
+				return u;
+				
+		}
+		public void write(int r,int c,String s, String sht) throws IOException
+		{
+			 FileInputStream f1=new FileInputStream(f);
+				XSSFWorkbook wb=new XSSFWorkbook(f1);
+				XSSFSheet sh=wb.getSheet(sht);
+				sh.getRow(r).createCell(c).setCellValue(s);
+				FileOutputStream fo=new FileOutputStream(new File(excel));
+				  wb.write(fo);
+				  fo.close();
+		}
+		
+		
+		public void status(int r, int c, String sht) throws IOException {
+			 if (read(r,c,sht).equals(read(r,(c+1),sht))) {
+			    	write(r, (c+2), "Pass",sht);
+				} else {
+					write(r, (c+2), "Fail",sht);
+				}
+		}
+	
+	
+	
+	
+
+
+
+@Given("^User should be on Edit Profile Page$")
+public void User_should_be_on_Edit_Profile_Page()  {
+
+	driver.get(url);
+	
+	driver.findElement(getlocator("uid")).sendKeys("ab.ab@gmail.com");
+	driver.findElement(getlocator("pwd")).sendKeys("Aleena@12");
+	driver.findElement(getlocator("login")).click();
+	driver.findElement(getlocator("editpro")).click();
+	
+}
+
+/*@When("^user on Edit Profile page$")
+public void user_on_Edit_Profile_page()  {
+	
+	
+}
+
+@Then("^title of page should be Edit Profile$")
+public void title_of_page_should_be_Edit_Profile()  {
+	
+	
+}
+
+@When("^user clicks on  HOME link  displayed on Edit Pofile page$")
+public void user_clicks_on_HOME_link_displayed_on_Edit_Pofile_page() throws Throwable {
+    
+	
+	
+}
+
+@Then("^user will Redirect to Customer Home$")
+public void user_will_Redirect_to_Customer_Home()  {
+   
+	
+}
+
+@When("^user clicks on EDIT PROFILE link displayed on Edit Profile page$")
+public void user_clicks_on_EDIT_PROFILE_link_displayed_on_Edit_Profile_page() {
+   
+	
+}
+
+@Then("^user will Redirect to same\\(Edit Profile\\) Page$")
+public void user_will_Redirect_to_same_Edit_Profile_Page() {
+    
+	
+}
+
+@When("^user clicks on SHOW DETAILS link  displayed on Edit profile page$")
+public void user_clicks_on_SHOW_DETAILS_link_displayed_on_Edit_profile_page() {
+    
+	
+}
+
+@Then("^user will redirect to SHOW DETAILS link$")
+public void user_will_redirect_to_SHOW_DETAILS_link()  {
+    
+	
+}
+
+@When("^user clicks on CANCEL BOOKING link  displayed on Edit Profile page$")
+public void user_clicks_on_CANCEL_BOOKING_link_displayed_on_Edit_Profile_page()  {
+    
+	
+}
+
+@Then("^user will Redirect to Cancel Booking page$")
+public void user_will_Redirect_to_Cancel_Booking_page()  {
+    
+	
+}
+
+@When("^user clicks on LOGOUT link displayed on Edit Profile page$")
+public void user_clicks_on_LOGOUT_link_displayed_on_Edit_Profile_page() {
+   
+	
+}
+
+@Then("^user will redirect to Cinema Cafe page$")
+public void user_will_redirect_to_Cinema_Cafe_page()  {
+   
+	
+}*/
+
+@When("^user enters valid Name, valid Mobile, valid Password, valid Answer and click on Submit button$")
+public void user_enters_valid_Name_valid_Mobile_valid_Password_valid_Answer_and_click_on_Submit_button() throws IOException {
+    driver.findElement(getlocator("name")).sendKeys(read(1, 0, "data"));
+    driver.findElement(getlocator("mob")).sendKeys(read(1, 1, "data"));
+    driver.findElement(getlocator("pass")).sendKeys(read(1, 2, "data"));
+    driver.findElement(getlocator("ans")).sendKeys(read(1, 3, "data"));
+    driver.findElement(getlocator("update")).click();
+	
+	
+}
+
+@Then("^user gets message-Data updated successfully$")
+public void user_gets_message_Data_updated_successfully() throws IOException  {
+    write(1, 5, driver.getTitle(), "data");
+    status(1, 4, "data");
+}
+
+@When("^user enters valid Mobile, valid Password, valid Answer and click on Submit button$")
+public void user_enters_valid_Mobile_valid_Password_valid_Answer_and_click_on_Submit_button() throws IOException  {
+	 driver.findElement(getlocator("name")).sendKeys(read(2, 0, "data"));
+	    driver.findElement(getlocator("mob")).sendKeys(read(2, 1, "data"));
+	    driver.findElement(getlocator("pass")).sendKeys(read(2, 2, "data"));
+	    driver.findElement(getlocator("ans")).sendKeys(read(2, 3, "data"));
+	    driver.findElement(getlocator("update")).click();
+	    
+}
+
+@Then("^user gets message-Username is blank$")
+public void user_gets_message_Username_is_blank() throws IOException  {
+	write(2, 5, driver.findElement(getlocator("unamblk")).getText(), "data");
+	status(2, 4, "data");
+    
+}
+
+@When("^user enters name with less than (\\d+) characters, valid Mobile, valid Password, valid Answer and click on Submit button$")
+public void user_enters_name_with_less_than_characters_valid_Mobile_valid_Password_valid_Answer_and_click_on_Submit_button(int arg1) throws IOException  {
+   
+	driver.findElement(getlocator("name")).sendKeys(read(3, 0, "data"));
+    driver.findElement(getlocator("mob")).sendKeys(read(3, 1, "data"));
+    driver.findElement(getlocator("pass")).sendKeys(read(3, 2, "data"));
+    driver.findElement(getlocator("ans")).sendKeys(read(3, 3, "data"));
+    driver.findElement(getlocator("update")).click();
+}
+
+@Then("^user gets message-Name is out of range.Name exceeding range.$")
+public void user_gets_message_Name_is_out_of_range_Name_exceeding_range1() throws IOException  {
+	write(3, 5, driver.findElement(getlocator("unamrg")).getText(), "data");
+	status(3, 4, "data");
+}
+
+@When("^user enters name with greater than (\\d+) characters, valid Mobile, valid Password, enters valid Answer and click on Submit button$")
+public void user_enters_name_with_greater_than_characters_valid_Mobile_valid_Password_enters_valid_Answer_and_click_on_Submit_button(int arg1) throws IOException  {
+	driver.findElement(getlocator("name")).sendKeys(read(4, 0, "data"));
+    driver.findElement(getlocator("mob")).sendKeys(read(4, 1, "data"));
+    driver.findElement(getlocator("pass")).sendKeys(read(4, 2, "data"));
+    driver.findElement(getlocator("ans")).sendKeys(read(4, 3, "data"));
+    driver.findElement(getlocator("update")).click();
+}
+
+@Then("^user gets message-Name is out of range. Name exceeding range.$")
+public void user_gets_message_Name_is_out_of_range_Name_exceeding_range() throws Throwable {
+	write(3, 5, driver.findElement(getlocator("unamrg")).getText(), "data");
+	status(4, 4, "data");
+}
+
+@When("^user enters name with special character, valid Mobile, valid Password, valid Answer and click on submit button$")
+public void user_enters_name_with_special_character_valid_Mobile_valid_Password_valid_Answer_and_click_on_submit_button() throws IOException  {
+	driver.findElement(getlocator("name")).sendKeys(read(5, 0, "data"));
+    driver.findElement(getlocator("mob")).sendKeys(read(5, 1, "data"));
+    driver.findElement(getlocator("pass")).sendKeys(read(5, 2, "data"));
+    driver.findElement(getlocator("ans")).sendKeys(read(5, 3, "data"));
+    driver.findElement(getlocator("update")).click();
+}
+
+@Then("^user gets message-Name is having special characters$")
+public void user_gets_message_Name_is_having_special_characters() throws IOException  {
+    
+	status(5, 4, "data");
+}
+
+@When("^user enters valid Name, mobile with less than (\\d+) numbers, valid Password, valid Answer and click on Submit button$")
+public void user_enters_valid_Name_mobile_with_less_than_numbers_valid_Password_valid_Answer_and_click_on_Submit_button(int arg1) throws IOException  {
+	driver.findElement(getlocator("name")).sendKeys(read(6, 0, "data"));
+    driver.findElement(getlocator("mob")).sendKeys(read(6, 1, "data"));
+    driver.findElement(getlocator("pass")).sendKeys(read(6, 2, "data"));
+    driver.findElement(getlocator("ans")).sendKeys(read(6, 3, "data"));
+    driver.findElement(getlocator("update")).click();
+}
+
+@Then("^user gets message-Mobile number is out of range.Please give a valid mobile number.$")
+public void user_gets_message_Mobile_number_is_out_of_range_Please_give_a_valid_mobile_number() throws IOException  {
+    write(6, 5, driver.findElement(getlocator("mobrg")).getText(), "data");
+	status(6, 4, "data");
+}
+
+@When("^user enters valid Name, mobile with greater than (\\d+) numbers, valid Password, valid Answer and click on Submit button$")
+public void user_enters_valid_Name_mobile_with_greater_than_numbers_valid_Password_valid_Answer_and_click_on_Submit_button(int arg1) throws IOException {
+   
+	driver.findElement(getlocator("name")).sendKeys(read(7, 0, "data"));
+    driver.findElement(getlocator("mob")).sendKeys(read(7, 1, "data"));
+    driver.findElement(getlocator("pass")).sendKeys(read(7, 2, "data"));
+    driver.findElement(getlocator("ans")).sendKeys(read(7, 3, "data"));
+    driver.findElement(getlocator("update")).click();
+}
+
+@Then("^user gets message-Mobile number is greater than (\\d+) numbers$")
+public void user_gets_message_Mobile_number_is_greater_than_numbers(int arg1) throws IOException  {
+    write(7, 5, driver.findElement(getlocator("mobrg")).getText(), "data");
+	status(7, 4, "data");
+}
+
+@When("^user enters valid Name, mobile with mobile having alphabets, valid Password, valid Answer and click on Submit button$")
+public void user_enters_valid_Name_mobile_with_mobile_having_alphabets_valid_Password_valid_Answer_and_click_on_Submit_button() throws IOException  {
+  
+	driver.findElement(getlocator("name")).sendKeys(read(8, 0, "data"));
+    driver.findElement(getlocator("mob")).sendKeys(read(8, 1, "data"));
+    driver.findElement(getlocator("pass")).sendKeys(read(8, 2, "data"));
+    driver.findElement(getlocator("ans")).sendKeys(read(8, 3, "data"));
+    driver.findElement(getlocator("update")).click();
+}
+
+@Then("^user gets message-Mobile number is having alphabet$")
+public void user_gets_message_Mobile_number_is_having_alphabet() throws IOException  {
+	write(8, 5, driver.findElement(getlocator("mobrg")).getText(), "data");
+	status(8, 4, "data");
+}
+
+@When("^user enters valid Name, mobile having special characters, valid Password, valid Answer and click on Submit button$")
+public void user_enters_valid_Name_mobile_having_special_characters_valid_Password_valid_Answer_and_click_on_Submit_button() throws IOException  {
+    
+	driver.findElement(getlocator("name")).sendKeys(read(9, 0, "data"));
+    driver.findElement(getlocator("mob")).sendKeys(read(9, 1, "data"));
+    driver.findElement(getlocator("pass")).sendKeys(read(9, 2, "data"));
+    driver.findElement(getlocator("ans")).sendKeys(read(9, 3, "data"));
+    driver.findElement(getlocator("update")).click();
+}
+
+@Then("^user gets message-Mobile number is having special character$")
+public void user_gets_message_Mobile_number_is_having_special_character() throws IOException  {
+	write(9, 5, driver.findElement(getlocator("mobrg")).getText(), "data");
+	status(9, 4, "data");
+}
+
+@When("^user enters valid Name, valid Password, valid Answer and click on Submit button$")
+public void user_enters_valid_Name_valid_Password_valid_Answer_and_click_on_Submit_button() throws IOException  {
+    
+	driver.findElement(getlocator("name")).sendKeys(read(10, 0, "data"));
+    driver.findElement(getlocator("mob")).sendKeys(read(10, 1, "data"));
+    driver.findElement(getlocator("pass")).sendKeys(read(10, 2, "data"));
+    driver.findElement(getlocator("ans")).sendKeys(read(10, 3, "data"));
+    driver.findElement(getlocator("update")).click();
+}
+
+@Then("^user gets message-Inserted the record$")
+public void user_gets_message_Inserted_the_record() throws IOException  {
+	
+	status(10, 4, "data");
+   
+}
+
+@When("^user enters valid Name, valid Mobile, valid Answer and click on Submit button$")
+public void user_enters_valid_Name_valid_Mobile_valid_Answer_and_click_on_Submit_button() throws IOException  {
+  
+	driver.findElement(getlocator("name")).sendKeys(read(11, 0, "data"));
+    driver.findElement(getlocator("mob")).sendKeys(read(11, 1, "data"));
+    driver.findElement(getlocator("pass")).sendKeys(read(11, 2, "data"));
+    driver.findElement(getlocator("ans")).sendKeys(read(11, 3, "data"));
+    driver.findElement(getlocator("update")).click();
+}
+
+@Then("^user gets message-Password is blank$")
+public void user_gets_message_Password_is_blank() throws IOException {
+	write(11, 5, driver.findElement(getlocator("blkpwd")).getText(), "data");
+	status(11, 4, "data");
+    
+}
+
+@When("^user enters valid Name, valid Mobile, Password with less than (\\d+) characters, valid Answer and click on Submit button$")
+public void user_enters_valid_Name_valid_Mobile_Password_with_less_than_characters_valid_Answer_and_click_on_Submit_button(int arg1) throws IOException  {
+    
+	driver.findElement(getlocator("name")).sendKeys(read(12, 0, "data"));
+    driver.findElement(getlocator("mob")).sendKeys(read(12, 1, "data"));
+    driver.findElement(getlocator("pass")).sendKeys(read(12, 2, "data"));
+    driver.findElement(getlocator("ans")).sendKeys(read(12, 3, "data"));
+    driver.findElement(getlocator("update")).click();
+}
+
+@Then("^user gets message-Password is less than (\\d+) characters$")
+public void user_gets_message_Password_is_less_than_characters(int arg1) throws IOException  {
+    write(12, 5, driver.findElement(getlocator("pwdrg")).getText(), "data");
+	status(12, 4, "data");
+}
+
+@When("^user enters valid Name, valid Mobile, Password with greater than (\\d+) characters, valid Answer and click on Submit button$")
+public void user_enters_valid_Name_valid_Mobile_Password_with_greater_than_characters_valid_Answer_and_click_on_Submit_button(int arg1) throws IOException  {
+    
+	driver.findElement(getlocator("name")).sendKeys(read(13, 0, "data"));
+    driver.findElement(getlocator("mob")).sendKeys(read(13, 1, "data"));
+    driver.findElement(getlocator("pass")).sendKeys(read(13, 2, "data"));
+    driver.findElement(getlocator("ans")).sendKeys(read(13, 3, "data"));
+    driver.findElement(getlocator("update")).click();
+}
+
+@Then("^user gets message-Password is greater than (\\d+) characters$")
+public void user_gets_message_Password_is_greater_than_characters(int arg1) throws IOException  {
+    write(13, 5, driver.findElement(getlocator("pwdrg")).getText(), "data");
+	status(13, 4, "data");
+}
+
+@When("^user enters valid Name, valid Mobile, Password with special characters, valid Answer and click on Submit button$")
+public void user_enters_valid_Name_valid_Mobile_Password_with_special_characters_valid_Answer_and_click_on_Submit_button() throws IOException  {
+ 
+	driver.findElement(getlocator("name")).sendKeys(read(14, 0, "data"));
+    driver.findElement(getlocator("mob")).sendKeys(read(14, 1, "data"));
+    driver.findElement(getlocator("pass")).sendKeys(read(14, 2, "data"));
+    driver.findElement(getlocator("ans")).sendKeys(read(14, 3, "data"));
+    driver.findElement(getlocator("update")).click();
+}
+
+@Then("^user gets message-password is having special character$")
+public void user_gets_message_password_is_having_special_character() throws IOException {
+    
+	status(14, 4, "data");
+}
+
+@When("^user enters valid Name, valid Mobile, valid Password and click on Submit button$")
+public void user_enters_valid_Name_valid_Mobile_valid_Password_and_click_on_Submit_button() throws IOException  {
+   
+	driver.findElement(getlocator("name")).sendKeys(read(15, 0, "data"));
+    driver.findElement(getlocator("mob")).sendKeys(read(15, 1, "data"));
+    driver.findElement(getlocator("pass")).sendKeys(read(15, 2, "data"));
+    driver.findElement(getlocator("ans")).sendKeys(read(15, 3, "data"));
+    driver.findElement(getlocator("update")).click();
+}
+
+@Then("^user gets message-Answer is blank.Please provide an answer to security question.$")
+public void user_gets_message_Answer_is_blank_Please_provide_an_answer_to_security_question() throws IOException  {
+   write(15, 5, driver.findElement(getlocator("blkans")).getText(), "data");
+	status(15, 4, "data");
+}
+
+@When("^user enters valid Name, valid Mobile, valid Password, Answer having less than (\\d+) characters and click on Submit button$")
+public void user_enters_valid_Name_valid_Mobile_valid_Password_Answer_having_less_than_characters_and_click_on_Submit_button(int arg1) throws IOException {
+   
+	driver.findElement(getlocator("name")).sendKeys(read(16, 0, "data"));
+    driver.findElement(getlocator("mob")).sendKeys(read(16, 1, "data"));
+    driver.findElement(getlocator("pass")).sendKeys(read(16, 2, "data"));
+    driver.findElement(getlocator("ans")).sendKeys(read(16, 3, "data"));
+    driver.findElement(getlocator("update")).click();
+    
+}
+
+@Then("^user gets message-Answer is less than (\\d+) characters$")
+public void user_gets_message_Answer_is_less_than_characters(int arg1) throws IOException  {
+    write(16, 4, driver.findElement(getlocator("ansrg")).getText(), "data");
+	status(16, 4, "data");
+}
+
+@When("^user enters valid Name, valid Mobile, valid Password, Answer having greater than (\\d+) characters and click on Submit button$")
+public void user_enters_valid_Name_valid_Mobile_valid_Password_Answer_having_greater_than_characters_and_click_on_Submit_button(int arg1) throws IOException  {
+    
+	driver.findElement(getlocator("name")).sendKeys(read(17, 0, "data"));
+    driver.findElement(getlocator("mob")).sendKeys(read(17, 1, "data"));
+    driver.findElement(getlocator("pass")).sendKeys(read(17, 2, "data"));
+    driver.findElement(getlocator("ans")).sendKeys(read(17, 3, "data"));
+    driver.findElement(getlocator("update")).click();
+}
+
+@Then("^user gets message-Answer is greater than (\\d+) characters$")
+public void user_gets_message_Answer_is_greater_than_characters(int arg1) throws IOException  {
+    write(17, 4, driver.findElement(getlocator("ansrg")).getText(), "data");
+	status(17, 4, "data");
+}
+
+@When("^user enters valid Name, valid Mobile, valid Password, Answer having special characters and click on Submit button$")
+public void user_enters_valid_Name_valid_Mobile_valid_Password_Answer_having_special_characters_and_click_on_Submit_button() throws IOException  {
+    
+	driver.findElement(getlocator("name")).sendKeys(read(18, 0, "data"));
+    driver.findElement(getlocator("mob")).sendKeys(read(18, 1, "data"));
+    driver.findElement(getlocator("pass")).sendKeys(read(18, 2, "data"));
+    driver.findElement(getlocator("ans")).sendKeys(read(18, 3, "data"));
+    driver.findElement(getlocator("update")).click();
+}
+
+@Then("^user gets message-Answer is having special character$")
+public void user_gets_message_Answer_is_having_special_character() throws IOException  {
+    write(18, 4, driver.findElement(getlocator("ansspl")).getText(), "data");
+	status(18, 4, "data");
+}
+
+@When("^user counts number of links$")
+public void user_counts_number_of_links()  {
+    
+	List<WebElement> lnk=driver.findElements(getlocator("b"));
+	String lk=String.valueOf(lnk);
+}
+
+@Then("^number of links should be (\\d+)$")
+public void number_of_links_should_be(int arg1)  {
+    
+	
+}
+
+@When("^user counts number of text boxes$")
+public void user_counts_number_of_text_boxes()  {
+    
+	List<WebElement> txt=driver.findElements(getlocator("txtbox"));
+	String txtb=String.valueOf(txt);
+}
+
+@Then("^the number of text boxes should be (\\d+)$")
+public void the_number_of_text_boxes_should_be(int arg1)  {
+    
+}
+
+@When("^user counts number of buttons$")
+public void user_counts_number_of_buttons()  {
+   
+	List<WebElement> bt=driver.findElements(getlocator("button"));
+	String btn=String.valueOf(bt);
+}
+
+@Then("^the number of buttons should be (\\d+)$")
+public void the_number_of_buttons_should_be(int arg1)  {
+    
+	
+}
+
+
+
+}

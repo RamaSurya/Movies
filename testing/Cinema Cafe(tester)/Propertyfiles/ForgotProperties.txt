@@ -1,0 +1,4 @@
+CANCEL=xpath,/html/body/div[1]/nav/div/div[2]/ul/li/a
+Userid=name,userid
+Answer=name,answer
+Submit=cssSelector,input[type=submit]

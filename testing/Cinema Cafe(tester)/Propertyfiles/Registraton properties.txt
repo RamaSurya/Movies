@@ -1,0 +1,8 @@
+cancel=xpath,/html/body/div[1]/nav/div/div[2]/ul/li/a
+userid=name,userid
+name=id,name
+mob=name,mobilenumber
+password=id,password
+answer=name,answer
+register=cssSelector,input[value=register]
+

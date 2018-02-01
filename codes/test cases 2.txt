@@ -1,0 +1,365 @@
+using System;
+using System.Text;
+using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using online_movie.Controllers;
+using System.Web.Mvc;
+using Business_entities;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Data;
+using Data_access_layer;
+using Common;
+using Bussiness_layer;
+
+namespace online_movie.Tests
+{ 
+
+    [TestClass]
+    public class LayersTest
+    {
+        CommonClass com = new CommonClass();
+        LoginClass c = new LoginClass();
+        Controllers.HomeController hc = new Controllers.HomeController();
+
+        [TestMethod]
+        public void TestMethod_For_User_Login_True()           //user login for valid
+        {
+
+            LoginClass cl = new LoginClass();
+            cl.userid = "ab.ab@gmail.com";
+            cl.password = "Aleena@12";
+
+            DataClass d = new DataClass();
+            string expected = "successfully logged in as customer";
+            string actual = d.ValidateUser(cl);
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestMethod]
+        public void TestMethod_For_User_Login_Invalid()           //user login for invalid
+        {
+
+            LoginClass cl = new LoginClass();
+            cl.userid = "ab@gmail";
+            cl.password = "ab@ab12";
+
+            DataClass d = new DataClass();
+            string expected = "login failed";
+            string actual = d.ValidateUser(cl);
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestMethod]
+        public void TestMethod_For_User_Admin_Login_True()                   //admin login
+        {
+            LoginClass lg = new LoginClass();
+            lg.userid = "admin@admin.com";
+            lg.password = "admin123";
+            DataClass da = new DataClass();
+
+            string expected = "successfully logged in as admin";
+            string actual = da.ValidateUser(lg);
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        [TestMethod]
+        public void TestMethod_For_User_Admin_InValid_Login()                   //admin login
+        {
+            LoginClass lg = new LoginClass();
+            lg.userid = "venu@venu.con";
+            lg.password = "admin1234";
+            DataClass da = new DataClass();
+            string expected = "Login is unsuccessfull";
+            string actual = da.ValidateUser(lg);
+            Assert.AreNotEqual(expected, actual);
+
+        }
+
+
+        [TestMethod]
+        public void TestMethod_For_Exception_Error_In_Login()                   //exception error
+        {
+            LoginClass lg = new LoginClass();
+            lg.userid = "venu@venu.con";
+            lg.password = "admin1234";
+            DataClass da = new DataClass();
+            string expected = "Login is unsuccessfull";
+            string actual = da.ValidateUser(lg);
+            Assert.AreNotEqual(expected, actual);
+
+        }
+
+
+        [TestMethod]
+        public void TestMethod_For_Not_Connected_In_Login()                   //not connected
+        {
+            LoginClass lg = new LoginClass();
+            lg.userid = "venu@venu.con";
+            lg.password = "admin1234";
+            DataClass da = new DataClass();
+            string expected = "Login is unsuccessfull";
+            string actual = da.ValidateUser(lg);
+            Assert.AreNotEqual(expected, actual);
+
+        }
+
+
+        [TestMethod]
+        public void TestMethod_For_User_Registration_Success()               //user register
+        {
+
+            RegistrationClass r = new RegistrationClass();
+            r.userid = "venugopal@gmail.com";
+            r.name = "venugopal";
+            r.mobile = "9989859984";
+            r.password = "venugopal";
+            r.answer = "venugopal";
+            DataClass c = new DataClass();
+            string expected = "Registered Successfully";
+            string actual = c.RegisterUser(r);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestMethod_For_User_Registration_Fail()               //user registration fail
+        {
+
+            RegistrationClass r = new RegistrationClass();
+            r.userid = "umamahi12345@gmail.com";
+            r.name = "umamaheswari";
+            r.mobile = "9989199984";
+            r.password = "uma12345";
+            r.answer = "mmahiqwerty";
+            DataClass c = new DataClass();
+            string expected = "UserId already exists";
+            string actual = c.RegisterUser(r);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestMethod_For_User_Registration_Already_Exists()               //user register already exists
+        {
+
+            RegistrationClass r = new RegistrationClass();
+            r.userid = "umamahi3456@gmail.com";
+            r.name = "umamaheswari";
+            r.mobile = "9989199984";
+            r.password = "uma12345";
+            r.answer = "mmahiqwerty";
+            DataClass c = new DataClass();
+            string expected = "UserId already exists";
+            string actual = c.RegisterUser(r);
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestMethod]
+        public void TestMethod_For_User_Registration_Not_Connected()               //user register not connected
+        {
+
+            RegistrationClass r = new RegistrationClass();
+            r.userid = "umamahi12345@gmail.com";
+            r.name = "umamaheswari";
+            r.mobile = "9989199984";
+            r.password = "uma12345";
+            r.answer = "mmahiqwerty";
+            DataClass c = new DataClass();
+            string expected = "Registration Unsuccessfully";
+            string actual = c.RegisterUser(r);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestMethod_For_User_Registration_Execption_Error()               //user register exception error
+        {
+
+            RegistrationClass r = new RegistrationClass();
+            r.userid = "umamahi12345@gmail.com";
+            r.name = "umamaheswari";
+            r.mobile = "9989199984";
+            r.password = "uma12345";
+            r.answer = "mmahiqwerty";
+            DataClass c = new DataClass();
+            string expected = "UserId already exists";
+            string actual = c.RegisterUser(r);
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestMethod]
+        public void TestMethod_For_Updating_seat_Price()               //update price
+        {
+            UpdatePriceClass u = new UpdatePriceClass();
+            u.type = "Gold";
+            u.price = 555;
+            DataClass c1 = new DataClass();
+            string expected = "price updated";
+            string actual = c1.SeatPrice(u);
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        [TestMethod]
+        public void TestMethod_For_Not_Updating_seat_Price()               //not updating price
+        {
+            UpdatePriceClass u = new UpdatePriceClass();
+            u.type = "Gold";
+            u.price = 555;
+            DataClass c1 = new DataClass();
+            string expected = "price updated";
+            string actual = c1.SeatPrice(u);
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        [TestMethod]
+        public void TestMethod_For_Exception_Error()               //Exception error
+        {
+            UpdatePriceClass u = new UpdatePriceClass();
+            u.type = "Gold";
+            u.price = 555;
+            DataClass c1 = new DataClass();
+            string expected = "price updated";
+            string actual = c1.SeatPrice(u);
+            Assert.AreEqual(expected, actual);
+
+        }
+
+
+        [TestMethod]
+        public void TestMethod_For_Adding_Movie()           //add movie
+        {
+
+            AddMovieClass am = new AddMovieClass();
+            am.showid = "28282";
+            am.moviename = "Venu Life";
+            am.date = Convert.ToDateTime("2017-07-01");
+            am.starttime = DateTime.Parse(("03:40 PM").ToString());
+            am.endtime = DateTime.Parse(("07:00 PM").ToString());
+            DataClass da = new DataClass();
+            string expected = "already exists";
+            string actual = da.AddMovie(am);
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestMethod]
+        public void TestMethod_For_Unable_To_Add_Movie()           //Unable to add movie
+        {
+
+            AddMovieClass am = new AddMovieClass();
+            am.showid = "23478";
+            am.moviename = "kaidhi150";
+            am.date = Convert.ToDateTime("2017-11-01");
+            am.starttime = DateTime.Parse(("03:30 PM").ToString());
+            am.endtime = DateTime.Parse(("06:00 PM").ToString());
+            DataClass da = new DataClass();
+            string expected = "Unable to add movie";
+            string actual = da.AddMovie(am);
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestMethod]
+        public void TestMethod_For_Exception_Error_In_AddMovie()               //Exception error
+        {
+            UpdatePriceClass u = new UpdatePriceClass();
+            u.type = "Gold";
+            u.price = 555;
+            DataClass c1 = new DataClass();
+            string expected = "price updated";
+            string actual = c1.SeatPrice(u);
+            Assert.AreEqual(expected, actual);
+
+        }
+
+
+        [TestMethod]
+        public void TestMethod_For_ForgotPassword_Success()               //forgot password
+        {
+
+
+            ForgetPasswordClass fg = new ForgetPasswordClass();
+            fg.userid = "testertest@gmail.com";
+            fg.answer = "validanswer";
+            DataClass c = new DataClass();
+            string expected = "Successfully Logged in";
+            string actual = c.ForgetPassword(fg);
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        [TestMethod]
+        public void TestMethod_For_ForgotPassword_Fail()               //forgot password failed
+        {
+
+
+            ForgetPasswordClass fg = new ForgetPasswordClass();
+            fg.userid = "abc@abc.com";
+            fg.answer = "yaho854";
+            DataClass c = new DataClass();
+            string expected = "Login failed";
+            string actual = c.ForgetPassword(fg);
+            Assert.AreEqual(expected, actual);
+
+        }
+
+
+        [TestMethod]
+        public void TestMethod_For_Exception_Error_In_Forgot_Password()               //Exception error
+        {
+            UpdatePriceClass u = new UpdatePriceClass();
+            u.type = "Gold";
+            u.price = 555;
+            DataClass c1 = new DataClass();
+            string expected = "price updated";
+            string actual = c1.SeatPrice(u);
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        [TestMethod]
+        public void TestMethod_For_Edit_Profile_Data_Updated_Successfully()
+        {
+
+
+        }
+
+        [TestMethod]
+        public void TestMethod_For_Edit_Profile_Data_Unable_To_Edit()
+        {
+
+
+        }
+
+        [TestMethod]
+        public void TestMethod_For_Edit_Profile_Data_Exception()
+        {
+
+
+        }
+
+        [TestMethod]
+        public void TestMethod_For_Select_Shows_Valid()
+        {
+        }
+
+        [TestMethod]
+        public void TestMethod_For_Select_Shows_Invalid()
+        {
+        }
+
+        [TestMethod]
+        public void TestMethod_For_Logout_Success()
+        {
+        }
+
+       
+
+       
+    }
+}

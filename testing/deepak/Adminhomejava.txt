@@ -1,0 +1,186 @@
+package com.login;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+public class AdminHome extends ObjectAccess{
+	public AdminHome() throws IOException {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	static String url="http://172.16.170.155/cinemacafe1";
+	static String excel="C:/software/auomation/selenium/Cinema Cfe/Excelfiles/.xlsx";
+
+	static WebDriver driver=new FirefoxDriver();
+		
+		static File f=new File(excel);
+		 static  FileInputStream f1;
+			static XSSFWorkbook wb;
+			static XSSFSheet sh;
+			public String  read(int r,int c, String sht) throws IOException
+			{
+				
+				  FileInputStream f1=new FileInputStream(f);
+					XSSFWorkbook wb=new XSSFWorkbook(f1);
+					XSSFSheet sh=wb.getSheet(sht);
+					String u="";
+				          try
+							{
+								if(sh.getRow(r).getCell(c).getCellType()==0)
+								{
+									int m=(int) sh.getRow(r).getCell(c).getNumericCellValue();
+									u=String.valueOf(m);
+								}
+								else
+								{
+									u=sh.getRow(r).getCell(c).getStringCellValue();
+								}
+							}
+							catch(Exception e)
+							{
+								if(e.equals("NullPointerException"))
+									u=null;
+							}
+					
+					return u;
+					
+			}
+			public void write(int r,int c,String s, String sht) throws IOException
+			{
+				 FileInputStream f1=new FileInputStream(f);
+					XSSFWorkbook wb=new XSSFWorkbook(f1);
+					XSSFSheet sh=wb.getSheet(sht);
+					sh.getRow(r).createCell(c).setCellValue(s);
+					FileOutputStream fo=new FileOutputStream(new File(excel));
+					  wb.write(fo);
+					  fo.close();
+			}
+		
+			
+			public void status(int r, int c, String sht) throws IOException {
+				 if (read(r,c,sht).equals(read(r,(c+1), sht))) {
+				    	write(r, (c+2), "Pass",sht);
+					} else {
+						write(r, (c+2), "Fail",sht);
+					}
+			}
+
+
+
+@Given("^user should be on Add Movies page$")
+public void user_should_be_on_Add_Movies_page() throws IOException  {
+	
+	 driver.get(url);
+	 driver.findElement(getlocator("userid")).sendKeys(read(1,0,"data"));
+	   driver.findElement(getlocator("pass")).sendKeys(read(1,1,"data"));
+	   driver.findElement(getlocator("login")).click();
+   
+    
+    
+}
+
+@When("^Admin Home page is opened$")
+public void Admin_Home_page_is_opened()  {
+  
+}
+
+@Then("^the title of page should be Admin Home$")
+public void the_title_of_page_should_be_Admin_Home() {
+    
+}
+
+@When("^Home link is displayed on Admin Home page and admin clicks on Home link$")
+public void Home_link_is_displayed_on_Admin_Home_page_and_admin_clicks_on_Home_link() throws IOException {
+	  driver.findElement(getlocator("home")).click();
+	  write(1, 3, driver.getTitle(),"data");
+   
+}
+
+@Then("^admin will redirect to the same\\(Admin Home\\) page$")
+public void admin_will_redirect_to_the_same_Admin_Home_page() throws IOException  {
+	status(1, 2, "data");
+}
+
+@When("^Add movie link is displayed on Admin Home page and admin clicks on Add Movie link$")
+public void Add_movie_link_is_displayed_on_Admin_Home_page_and_admin_clicks_on_Add_Movie_link() throws IOException  {
+	driver.findElement(getlocator("addmovie")).click();
+	  write(1, 3, driver.getTitle(),"data");
+   
+}
+
+@Then("^admin will redirect to the Add Movie Page$")
+public void admin_will_redirect_to_the_Add_Movie_Page() throws IOException  {
+	status(1, 2, "data");
+    
+}
+
+@When("^Update Movie link is displayed on Admin Home page and admin clicks on Update Movie link$")
+public void Update_Movie_link_is_displayed_on_Admin_Home_page_and_admin_clicks_on_Update_Movie_link() throws IOException  {
+	
+	driver.findElement(getlocator("updatemovie")).click();
+	  write(1, 3, driver.getTitle(),"data");
+    }
+
+@Then("^admin will redirect to the Update Movie Page$")
+public void admin_will_redirect_to_the_Update_Movie_Page() throws IOException {
+	
+	status(1, 2, "data");
+   }
+
+@When("^Update Price link is displayed on Admin Home page and admin clicks on Update Price link$")
+public void Update_Price_link_is_displayed_on_Admin_Home_page_and_admin_clicks_on_Update_Price_link() throws IOException {
+	
+	driver.findElement(getlocator("updateprice")).click();
+	  write(1, 3, driver.getTitle(),"data");
+   
+}
+
+@Then("^admin will redirect to the Update Price Page$")
+public void admin_will_redirect_to_the_Update_Price_Page() throws IOException  {
+	status(1, 2, "data");
+   
+}
+
+@When("^LOGOUT link is displayed on Add Movies page and admin clicks on LOGOUT link$")
+public void LOGOUT_link_is_displayed_on_Add_Movies_page_and_admin_clicks_on_LOGOUT_link() throws IOException  {
+	
+	driver.findElement(getlocator("logout")).click();
+	  write(1, 3, driver.getTitle(),"data");
+    
+}
+
+@Then("^admin will Redirect to the Cinema Cafe Page$")
+public void admin_will_Redirect_to_the_Cinema_Cafe_Page() throws IOException  {
+	
+	status(1, 2, "data");
+    }
+
+@When("^Admin counts the no. of links in Admin Home Page$")
+public void Admin_counts_the_no_of_links_in_Admin_Home_Page() throws IOException  {
+	
+	java.util.List<WebElement> lnks=driver.findElements(getlocator("links"));
+	String lnk=String.valueOf(lnks.size());
+	write(1, 2, "lnk","GUI");
+}
+
+@Then("^No. of links should be equal to (\\d+)$")
+public void No_of_links_should_be_equal_to(int arg1) throws IOException {
+	status(1, 2, "data");
+    
+}
+
+
+}

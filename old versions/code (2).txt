@@ -1,0 +1,60 @@
+Create table in SQL Server:
+
+Hide   Copy Code
+CREATE TABLE  BookedTickets
+(
+    id int IDENTITY (1,1) NOT NULL,
+    SeatNo nchar (10) NULL,
+    Status bit NULL
+); 
+Insert some data into the BookedTicket table.
+
+Hide   Copy Code
+INSERT INTO BookedTickets(SeatNo,Status) VALUES ('A13','True');
+INSERT INTO BookedTickets(SeatNo,Status) VALUES ('A14','True');  
+Code
+Now select Seat Number from the BookedTickets table:
+
+Hide   Copy Code
+string query = @"SELECT SeatNo FROM BookedTickets WHERE (Status='True')";
+SqlDataAdapter  adapter = new SqlDataAdapter(query, con);
+DataTable dt = new DataTable();
+adapter.Fill(dt);
+for(int i = 0; i < dt.Rows.Count; i++)
+{
+       getSeat = getSeat + "" + dt.Rows[i][0].ToString().Trim() + " ";
+}
+Check whether seat is booked / available and generate seat:
+
+Hide   Shrink    Copy Code
+protected string checkSeat(string sitting)
+{
+  try
+  {
+    string [] words = getSeat.Split(' ');
+    foreach (string word in words)
+    {
+     try
+     {
+      if (sitting.Equals(word))
+      {
+        chair = "<img id='" + sitting + "'
+        alt='Booked' src='images/chair/R_chair.gif'/>";
+        return chair;
+      }
+      else
+          chair = "<img id='" + sitting + "'
+          alt='Unbooked' onclick=\"seat('" + sitting +"')\"
+          src='images/chair/G_chair.gif' style='cursor:pointer;'/>";
+      }
+      catch (ArgumentOutOfRangeException) { }
+     }
+   }
+   catch (NullReferenceException)
+   {
+      chair = "<img id='" + sitting + "' alt='Unbooked'
+      onclick=\"seat('" + sitting + "')\"
+      src='images/chair/G_chair.gif' style='cursor:pointer;'/>";
+   }
+    return chair;
+ }

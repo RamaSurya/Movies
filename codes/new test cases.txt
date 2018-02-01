@@ -1,0 +1,117 @@
+using System;
+using System.Text;
+using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using BussinessEntities;
+using BussinessLayer;
+using DataAccessLayer;
+using OnlineMovie;
+using OnlineMovie.Controllers;
+using common;
+
+namespace OnlineMovie.Tests
+{
+    
+    [TestClass]
+    public class OnlineMovieTestCases
+    {
+        [TestMethod]
+        public void TestMethod_For_ValidateUser_In_LayerClass()
+        {
+            Login Login = new Login();
+            Login.userid = "ab.ab@gmail.com";
+            Login.password = "Aleena@12";
+            Layer Layer = new Layer();
+            string Result = Layer.validate(Login);
+            string expected = "loged in as customer";
+            Assert.AreEqual(expected, Result);
+        }
+
+
+        [TestMethod]
+        public void TestMethod_For_ValidateAdmin_In_LayerClass()
+        {
+            Login Login = new Login();
+            Login.userid = "Admin@Admin.com";
+            Login.password = "admin123";
+            Layer Layer = new Layer();
+            string Result = Layer.validate(Login);
+            string expected = "loged in as admin";
+            Assert.AreEqual(expected, Result);
+        }
+
+
+
+        [TestMethod]
+        public void TestMethod_For_InValidate_Login_In_LayerClass()
+        {
+            Login Login = new Login();
+            Login.userid = "Admin@ad.com";
+            Login.password = "admin1234";
+            Layer Layer = new Layer();
+            string Result = Layer.validate(Login);
+            string expected = "Invalid Userid or Password";
+            Assert.AreEqual(expected, Result);
+        }
+
+        [TestMethod]
+        public void TestMethod_For_UserRegister()
+        {
+            CustomerRegistration CustomerRegistration = new CustomerRegistration();
+            CustomerRegistration.userid = "Swami@gmail.com";
+            CustomerRegistration.name = "prasadRao ";
+            CustomerRegistration.mobile = "9658743219";
+            CustomerRegistration.password = "Dayyam";
+            CustomerRegistration.answer = "Kulli";
+            Layer Layer = new Layer();
+            string Result = Layer.register(CustomerRegistration);
+            string expected = "Successfully Registered";
+            Assert.AreEqual(expected, Result);
+        }
+
+
+        [TestMethod]
+        public void TestMethod_For_UserRegister_Already_Exists()
+        {
+            CustomerRegistration CustomerRegistration = new CustomerRegistration();
+            CustomerRegistration.userid = "Swami@gmail.com";
+            CustomerRegistration.name = "prasadRao ";
+            CustomerRegistration.mobile = "9658743219";
+            CustomerRegistration.password = "Dayyam";
+            CustomerRegistration.answer = "Kulli";
+            Layer Layer = new Layer();
+            string Result = Layer.register(CustomerRegistration);
+            string expected = "This user already exists";
+            Assert.AreEqual(expected, Result);
+        }
+
+        [TestMethod]
+        public void TestMethod_For_UserRegister_DidNot_Match_Validation()
+        {
+            CustomerRegistration CustomerRegistration = new CustomerRegistration();
+            CustomerRegistration.userid = "werrt";
+            CustomerRegistration.name = "sdfhkjd ";
+            CustomerRegistration.mobile = "564658556";
+            CustomerRegistration.password = "fsdgrtdh";
+            CustomerRegistration.answer = "dfasdgs";
+            Layer Layer = new Layer();
+            string Result = Layer.register(CustomerRegistration);
+            string expected = "Unable to register";
+            Assert.AreEqual(expected, Result);
+        }
+
+        [TestMethod]
+        public void TestMethod_For_Updating_SeatPrice()
+        {
+            UpdateSeatPrice UpdateSeatPrice = new UpdateSeatPrice();
+            UpdateSeatPrice.type = "Gold";
+            UpdateSeatPrice.price = "";
+            Layer layer = new Layer();
+            string Result = layer.updateseatprice(UpdateSeatPrice);
+            string Expected = "Updated Seat Price";
+            Assert.AreEqual(Expected,Result);
+        }
+
+
+    }
+}
